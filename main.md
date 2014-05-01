@@ -7,13 +7,14 @@ Email:  jni.soma@gmail.com
 # Git theory
 
 How does a repository work?
- - .git directory
- - .gitignore file
+
  - hashes
  - diffs
  - branches
  - tags
  - merges
+ - .git directory
+ - .gitignore file
 
 # Working with Git
  - checkouts, commits, sprouting.
