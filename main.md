@@ -1,3 +1,9 @@
+Title:  Git and Github: a tutorial
+Author: Juan Nunez-Iglesias
+Email:  jni.soma@gmail.com
+
+# <center> Git and Github: a tutorial </center>
+
 # Git theory
 
 How does a repository work?
