@@ -17,6 +17,7 @@ How does a repository work?
  - .gitignore file
 
 # Working with Git
+
  - checkouts, commits, sprouting.
  - working copy, staging area, history
  - *trust* git. Your data is safe. It’s very hard to actually lose data/code.
