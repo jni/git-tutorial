@@ -167,9 +167,13 @@ Github is useful as a semi-centralised model.
  - Choosing a license: No license implies closed source. The most popular licenses are BSD and GPL.
  - forks and pull requests
 
-Exercise. Pair up. Alice creates calc. repository. Bob *forks* that repository, creates a branch, makes changes, pushes branch to their fork, and then initiates a *pull request*. Original repo makes comments. Bob updates their branch, pushes to their own repo… PR is magically updated!
+## Exercise 3: GitHub pull requests
 
-Principle: *you* should be the one doing the work. Maintaining a big open source project is work enough.
+Exercise. Pair up. Alice creates calc. repository. Bob *forks* that repository, creates a branch, makes changes, pushes branch to their fork, and then initiates a *pull request*. Original repo makes comments. Bob updates their branch, pushes to their own repo... PR is magically updated!
+
+## Exercise 4: Rebasing a GitHub PR
+
+Principle: _you_ should be the one doing the work. Maintaining a big open source project is work enough. Therefore, if your merge does not apply cleanly (because the master has changed since you started your work), you need to _rebase_ your changes on top of the current master.
 
 Exercise. Work in threes. Alice creates calc. repository. Bob and Charlie each fork. Bob makes one set of changes, Charlie makes slightly incompatible set of changes. Bob’s changes get merged by Alice. Charlie needs to do a rebase.
 
