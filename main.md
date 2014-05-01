@@ -154,6 +154,10 @@ if __name__ == '__main__':
         print multiply_all(nums)
 ```
 
+## Exercise 2: merge conflicts
+
+Create a branch, make some changes, then make overlapping changes in the master branch. When you try to merge, you will have a conflict that you'll have to fix.
+
 # Working with Github
 
 Github is useful as a semi-centralised model.
