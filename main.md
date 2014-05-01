@@ -162,7 +162,9 @@ Create a branch, make some changes, then make overlapping changes in the master 
 
 Github is useful as a semi-centralised model.
 
- - creating a new repository, choosing a license. BSD/GPL most popular, significant philosophical and practical differences.
+ - Creating a new repository: GitHub will offer nice conveniences, such as
+   adding a README file, a .gitignore file, and a license.
+ - Choosing a license: No license implies closed source. The most popular licenses are BSD and GPL.
  - forks and pull requests
 
 Exercise. Pair up. Alice creates calc. repository. Bob *forks* that repository, creates a branch, makes changes, pushes branch to their fork, and then initiates a *pull request*. Original repo makes comments. Bob updates their branch, pushes to their own repo… PR is magically updated!
