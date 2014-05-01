@@ -154,7 +154,10 @@ if __name__ == '__main__':
         print multiply_all(nums)
 ```
 
-# Working with Github. semi-centralised model.
+# Working with Github
+
+Github is useful as a semi-centralised model.
+
  - creating a new repository, choosing a license. BSD/GPL most popular, significant philosophical and practical differences.
  - forks and pull requests
 
