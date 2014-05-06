@@ -4,6 +4,16 @@ Email:  jni.soma@gmail.com
 
 # <center> Git and Github: a tutorial </center>
 
+There are (at least) three stages of git enlightenment:
+
+1. Maintain a linear history for a file or group of files.
+2. Use branches effectively to group related changes together, as well as
+   maintain parallel versions.
+3. Use branches and pull-requests to collaborate effectively.
+
+It took me a long time to pass all three, and I hope this tutorial will help
+someone get there faster.
+
 # Git theory
 
 How does a repository work?
