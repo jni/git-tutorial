@@ -206,3 +206,8 @@ git push -f origin my-branch:my-branch
  - travis-CI
  - PRs against PRs
 
+# References
+
+[1] http://git-scm.com/ The Git homepage. A plethora of resources.
+[2] http://git-scm.com/book The Git book. Your starting point for all git
+    knowledge.
