@@ -14,7 +14,7 @@ There are (at least) three stages of git enlightenment:
 It took me a long time to pass all three, and I hope this tutorial will help
 someone get there faster.
 
-# What is Git?
+# What is Git and why do you want it?
 
 Git is a _revision control management system_. It helps you keep track of
 changes to your files. You've probably had the following thing happen to you
@@ -22,7 +22,16 @@ before:
 
 ![Revision hell](images/revhell.png)
 
-That is known as _revision hell_, and it happens when you don't use revision
+Notice:
+
+- Different versions of the same document have different filenames.
+- The date and author of a change are encoded haphazardly in the filename.
+- Serial edits by different authors are concatenated in the filename, with no
+  indication as to whose edit came first.
+- These are just five files in one directory; other revisions are probably
+  scattered around my various hard drives and as email attachments.
+
+This is known as _revision hell_, and it happens when you don't use revision
 control, even if you are working alone. Systems such as Git save you from this.
 
 # Git theory
