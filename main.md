@@ -14,6 +14,17 @@ There are (at least) three stages of git enlightenment:
 It took me a long time to pass all three, and I hope this tutorial will help
 someone get there faster.
 
+# What is Git?
+
+Git is a _revision control management system_. It helps you keep track of
+changes to your files. You've probably had the following thing happen to you
+before:
+
+![Revision hell](images/revhell.png)
+
+That is known as _revision hell_, and it happens when you don't use revision
+control, even if you are working alone. Systems such as Git save you from this.
+
 # Git theory
 
 How does a repository work?
