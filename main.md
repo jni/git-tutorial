@@ -16,9 +16,9 @@ someone get there faster.
 
 # What is Git and why do you want it?
 
-Git is a _revision control management system_. It helps you keep track of
-changes to your files. You've probably had the following thing happen to you
-before:
+Git is a _revision control management system_[^git][^gitbook]. It helps you
+keep track of changes to your files. You've probably had the following thing
+happen to you before:
 
 ![Revision hell](images/revhell.png)
 
@@ -249,6 +249,10 @@ git push -f origin my-branch:my-branch
 
 # References
 
-[1] http://git-scm.com/ The Git homepage. A plethora of resources.
-[2] http://git-scm.com/book The Git book. Your starting point for all git
+[^git]: http://git-scm.com/ The Git homepage. A plethora of resources.
+
+[^gitbook]: http://git-scm.com/book The Git book. Your starting point for all git
     knowledge.
+
+[^hash]: http//alblue.bandlem.com/2011/08/git-tip-of-week-objects.html A technical
+    description of git hashing.
