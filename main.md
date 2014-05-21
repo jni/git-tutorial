@@ -38,13 +38,41 @@ control, even if you are working alone. Systems such as Git save you from this.
 
 How does a repository work?
 
- - hashes
- - diffs
- - branches
- - tags
- - merges
- - .git directory
- - .gitignore file
+(Don't stress this section too much: it will all become second nature after
+you've used git for a bit.)
+
+## Hashes and diffs
+
+A *hash* is 160-bit summary of your data. Using an algorithm called SHA-1, Git
+mashes up the contents of your files until only 160 bits remain[^hash]. SHA1
+and related algorithms have the nice property that if your files change _just a
+little bit_, their hash changes _dramatically_. For example, here are the
+SHA1 hashes of files containing just the string "hello" or "Hello":
+
+```
+$ echo "hello" | openssl dgst -sha1
+f572d396fae9206628714fb2ce00f72e94f2258f
+$ echo "Hello" | openssl dgst -sha1
+1d229271928d3f9e2bb0375bd6ce5db6c6d348d9
+```
+
+This gives your data security, because if someone messes with it, or if a file
+gets subtly corrupted, the hashes will no longer match and git will know about
+it.
+
+So, whenever you _commit_ your data to Git, it puts it in a special folder
+named `.git`, and stores its hash at that time. If you then make changes, git
+will only need to store the changes (also called the _diff_), but it will also
+store the hash of the data.
+
+With these two things, git knows how to rebuild your data at any given time:
+find the last complete copy of the data, and then apply each diff in succession
+until the appropriate commit is reached. As additional verification, the hash
+of the data is recomputed and compared with the stored hash.
+
+## Branches and tags
+
+## Merges
 
 # Working with Git
 
