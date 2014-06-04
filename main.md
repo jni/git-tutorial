@@ -70,6 +70,12 @@ find the last complete copy of the data, and then apply each diff in succession
 until the appropriate commit is reached. As additional verification, the hash
 of the data is recomputed and compared with the stored hash.
 
+After a certain number of successive diffs, the files may be different enough
+that it's worthwhile storing them again from scratch. Git determines all this
+automatically. All you need to know is that storing file histories in git is
+_cheap_, much, much cheaper than storing multiple slightly different versions
+of a file.
+
 ## Branches and tags
 
 ## Merges
