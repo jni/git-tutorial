@@ -44,10 +44,10 @@ you've used git for a bit.)
 ## Hashes and diffs
 
 A *hash* is 160-bit summary of your data. Using an algorithm called SHA-1, Git
-mashes up the contents of your files until only 160 bits remain[^hash]. SHA1
-and related algorithms have the nice property that if your files change _just a
-little bit_, their hash changes _dramatically_. For example, here are the
-SHA1 hashes of files containing just the string "hello" or "Hello":
+mashes up the contents of your files until only 160 bits remain[^hash][^hash2].
+SHA1 and related algorithms have the nice property that if your files change
+_just a little bit_, their hash changes _dramatically_. For example, here are
+the SHA1 hashes of files containing just the string "hello" or "Hello":
 
 ```
 $ echo "hello" | openssl dgst -sha1
@@ -279,8 +279,11 @@ git push -f origin my-branch:my-branch
 
 [^git]: http://git-scm.com/ The Git homepage. A plethora of resources.
 
-[^gitbook]: http://git-scm.com/book The Git book. Your starting point for all git
-    knowledge.
+[^gitbook]: http://git-scm.com/book The Git book. Your starting point for all
+    git knowledge.
 
-[^hash]: http//alblue.bandlem.com/2011/08/git-tip-of-week-objects.html A technical
-    description of git hashing.
+[^hash]: http//alblue.bandlem.com/2011/08/git-tip-of-week-objects.html
+    A technical description of git hashing.
+
+[^hash2]: http://www.ericsink.com/vcbe/html/cryptographic_hashes.html An
+    introduction to cryptographic hashing
