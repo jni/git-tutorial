@@ -97,6 +97,11 @@ propagate changes from one to the other, and eventually merge them together.
 
 ## Merges
 
+In many cases, git can automatically merge branches that hold independent
+changes to a file or set of files. To continue with the paper example, if two
+different people work on different sections of the paper, Git will be able to
+merge the two versions together to update both sections.
+
 # Working with Git
 
  - checkouts, commits, sprouting.
