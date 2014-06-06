@@ -78,6 +78,23 @@ of a file.
 
 ## Branches and tags
 
+Hashes are unwieldy and difficult to read, so git offers a number of
+conveniences to avoid having to deal with them most of the time. The first is
+_tags_, which are simply alternate names for specific hashes. Thus, if you are
+writing a paper, you can tag the version you submit as follows:
+
+```
+$ git tag submitted-version
+```
+
+In addition to storing a history of a file, git can store _alternate_
+histories! This is extremely useful because it allows you to easily maintain
+different, parallel versions of a file. If you were writing a paper, you might
+have two different versions of the introduction, or you might have a version
+where you include a table and one where that table is pushed to the
+supplementary material. With branches, git helps you keep track of these,
+propagate changes from one to the other, and eventually merge them together.
+
 ## Merges
 
 # Working with Git
