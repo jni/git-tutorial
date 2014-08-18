@@ -81,6 +81,17 @@ automatically. All you need to know is that storing file histories in git is
 _cheap_, much, much cheaper than storing multiple slightly different versions
 of a file.
 
+## Checkouts
+
+Retrieving an earlier version of your work is then easy:
+
+```
+$ git checkout <hash>
+```
+
+This finds the version matching the supplied hash in the `.git` directory, and
+then copies it out to your working directory.
+
 ## Branches and tags
 
 Hashes are unwieldy and difficult to read, so git offers a number of
