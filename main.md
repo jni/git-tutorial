@@ -121,6 +121,35 @@ changes to a file or set of files. To continue with the paper example, if two
 different people work on different sections of the paper, Git will be able to
 merge the two versions together to update both sections.
 
+## Repositories
+
+The `.git` directory that we have mentioned is known as the _repository_, or
+repo for short. It contains all your past history, including the actual data,
+the hashes of the data, dates and authors of changes, and tags and branches.
+
+Once upon a time, before git was invented, repositories were always in a
+central location such as your department's main computing server. (The most
+popular version control system before git, Subversion, followed this model.)
+This made sharing of access unnecessarily cumbersome: you had to be very
+careful whom you allowed to commit changes to the repository, and you couldn't
+access the repository without an internet connection and sometimes a VPN.
+
+In git, repositories can be replicated, either in full or in part, as many
+times as necessary. Git hashes enable this: since every version has a commit
+hash that is practically guaranteed to be unique, as well as one or more
+_parent_ commits that are also hashed, it is trivially easy to reason about
+duplicated versions of the history.
+
+In addition to enabling backups, this also helps with collaboration, but adds
+an extra layer that you need to consider when using git: in addition to your
+repository in `.git` and your working copy, there are also "clone"
+repositories, also called "forks". These are useful for backups and to
+collaborate with others.
+
+While we *commit to* a repo from a working copy, and we *check out* to a
+working copy from a repo, we *push to* a fork from our repo, or *fetch from* a
+fork to our repo.
+
 # Working with Git
 
  - checkouts, commits, sprouting.
