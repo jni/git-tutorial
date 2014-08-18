@@ -159,6 +159,28 @@ In this section, we will get some hands-on experience with the above concepts:
  - working copy, staging area, history
  - pushing and pulling
 
+Throughout, an important message is to *trust* git. Your data is safe. It’s
+very hard to actually lose data/code.
+
+## Configuring git
+
+Your git settings live in a file called `.gitconfig` in your home directory:
+`/Users/username/` in Mac OS X, `$HOME`, usually `/home/username/` in Linux,
+and `C:\Users\username\` in Windows (7 and above).
+
+The first thing you should do after installing git is setting your name and
+email, so that your changes are properly attributed when you commit them to a
+repo:
+
+```
+$ git config --global user.name "Juan Nunez-Iglesias"
+$ git config --global user.email "juan.n@unimelb.edu.au"
+```
+
+(The `--global` tag means that this configuration should be used for all your
+git projects. You can change the setting for specific project, e.g. if you want
+to use a different institute's email address, by using the command without the
+tag inside a specific project.)
 
 ## Exercise 1: git basics
 
