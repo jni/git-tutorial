@@ -152,15 +152,13 @@ fork to our repo.
 
 # Working with Git
 
- - checkouts, commits, sprouting.
- - working copy, staging area, history
- - *trust* git. Your data is safe. It’s very hard to actually lose data/code.
+In this section, we will get some hands-on experience with the above concepts:
 
-A bugbear of mine and others': messages should be in the present imperative.
-“Fix bug X”, “Add feature Y”, “Document function Z”. This will mesh with git’s
-automatic commit messages, e.g. "Merge branch A from repository B". Find more
-information about conventions to follow in git log messages
-[here](http://365git.tumblr.com/post/3308646748/writing-git-commit-messages).
+ - getting started with git
+ - checkouts, commits, sprouting
+ - working copy, staging area, history
+ - pushing and pulling
+
 
 ## Exercise 1: git basics
 
@@ -191,6 +189,13 @@ $ git add calc.py
 $ git commit
 $ vim calc.py
 ```
+
+A bugbear of mine and others': messages should be in the present imperative.
+“Fix bug X”, “Add feature Y”, “Document function Z”. This will mesh with git’s
+automatic commit messages, e.g. "Merge branch A from repository B". Find more
+information about conventions to follow in git log messages
+[here](http://365git.tumblr.com/post/3308646748/writing-git-commit-messages).
+If you don't, Linus Torvalds will come after you.
 
 Now we add the `__main__` guard to the script, as is best practice:
 
