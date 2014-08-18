@@ -182,14 +182,11 @@ git projects. You can change the setting for specific project, e.g. if you want
 to use a different institute's email address, by using the command without the
 tag inside a specific project.)
 
-## Exercise 1: git basics
+## Exercise 1: tracking your change history with git
 
-Exercise: initialise a repo, make some changes, git add, git commit (x2). git
-checkout master -b mult; add multiplication in two commits. Then check out
-master, add usage string. Then git merge.
+Let's jump right in!
 
-First, we start a project, initialising the git repository in an empty
-directory.
+Start a project, initialising the git repository in an empty directory:
 
 ```bash
 $ mkdir calculator; cd calculator
@@ -201,34 +198,111 @@ A simple Python script to sum all command line arguments together:
 
 ```python
 import sys
-print sum(map(float, sys.argv[1:]))
+print(sum(map(int, sys.argv[1:])))
 ```
 
-We then tell git to add the file to its tracking system, and _commit_ our changes to the repository, before making more changes.
+Make sure it works:
+
+```
+$ python calc.py 7 9
+16
+```
+
+Tell git to add the file to its tracking system, and _commit_ your changes to
+the repository:
 
 ```bash
 $ git add calc.py
 $ git commit
-$ vim calc.py
 ```
+
+You'll be asked to enter a *commit message*. This should summarise the changes
+you made and *why* you made them. The message should be readable without (much)
+context.
+
+### An aside on style
 
 A bugbear of mine and others': messages should be in the present imperative.
 “Fix bug X”, “Add feature Y”, “Document function Z”. This will mesh with git’s
 automatic commit messages, e.g. "Merge branch A from repository B". Find more
 information about conventions to follow in git log messages
 [here](http://365git.tumblr.com/post/3308646748/writing-git-commit-messages).
-If you don't, Linus Torvalds will come after you.
+If you don't, Linus Torvalds will come after you and your family.
 
-Now we add the `__main__` guard to the script, as is best practice:
+In addition to the above English style guidelines, two other conventions are
+followed in the community:
+
+```
+Ensure first line is at most 50 chars long
+
+It should also not have a period at the end. The subsequent lines
+should be separated from the one-line summary by a blank line, and
+should be wrapped at 72 characters. This ensures readability in all
+text terminals.
+```
+
+### ... back to the exercise
+
+Now add the `__main__` guard to the script, as is best practice in
+Python:
 
 ```python
 import sys
 
 if __name__ == '__main__':
-    print sum(map(float, sys.argv[1:]))
+    print(sum(map(int, sys.argv[1:])))
 ```
 
-Now we commit those changes before changing to a different _branch_. We do this
+Commit those changes as above.
+
+Finally, add and commit another set of changes, allowing real numbers
+rather than just integers.
+
+```python
+import sys
+
+if __name__ == '__main__':
+    print(sum(map(float, sys.argv[1:])))
+```
+
+Test your changes again:
+
+```
+$ python calc.py 7.9 2.1
+10.0
+```
+
+You now have a *history* that you can look at and interact with:
+
+```
+$ git log
+```
+
+You can *check out* earlier versions of your code like so:
+
+```
+$ git checkout <hash>
+```
+
+Now your code should error if you try using decimal points again:
+
+```
+$ python calc.py 7.9 2.1
+Traceback (most recent call last):
+  File "calc.py", line 2, in <module>
+    print(sum(map(int, sys.argv[1:])))
+ValueError: invalid literal for int() with base 10: '7.8'
+```
+
+Thankfully, it's easy to go back to the latest version:
+
+```
+$ git checkout master
+```
+
+## Exercise 2: branches
+
+before changing to a different _branch_. We do this
 when we want to introduce new functionality that might break our existing code.
 (In practice, this is whenever we want to change anything!)
 
