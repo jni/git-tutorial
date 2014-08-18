@@ -20,6 +20,11 @@ Git is a _revision control management system_[^git][^gitbook]. It helps you
 keep track of changes to your files. You've probably had the following thing
 happen to you before:
 
+![PhD Comics:
+Final.doc](http://www.phdcomics.com/comics/archive/phd101212s.gif)
+
+I certainly have:
+
 ![Revision hell](images/revhell.png)
 
 Notice:
@@ -60,7 +65,7 @@ This gives your data security, because if someone messes with it, or if a file
 gets subtly corrupted, the hashes will no longer match and git will know about
 it.
 
-So, whenever you _commit_ your data to Git, it puts it in a special folder
+So, whenever you _commit_ your data to git, it puts it in a special folder
 named `.git`, and stores its hash at that time. If you then make changes, git
 will only need to store the changes (also called the _diff_), but it will also
 store the hash of the data.
@@ -87,8 +92,11 @@ writing a paper, you can tag the version you submit as follows:
 $ git tag submitted-version
 ```
 
+From then on, the name "`submitted-version`" will be associated with that
+committed version of your files.
+
 In addition to storing a history of a file, git can store _alternate_
-histories! This is extremely useful because it allows you to easily maintain
+histories! This allows you to easily maintain
 different, parallel versions of a file. If you were writing a paper, you might
 have two different versions of the introduction, or you might have a version
 where you include a table and one where that table is pushed to the
