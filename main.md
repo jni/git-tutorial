@@ -186,15 +186,41 @@ tag inside a specific project.)
 
 Let's jump right in!
 
-Start a project, initialising the git repository in an empty directory:
+Git is a tool to control revisions. GitHub is a web service centered on
+git. It provides repository hosting as well as a suite of workflows to
+aid collaboration.
+
+You will learn a bit more about GitHub in later sections, but for now,
+you should create your new project on GitHub, as it offers some nice
+conveniences: addition of a README, a gitignore, and a license.
+
+> A quick note on licenses:
+> 
+> The two most popular free and open source (FOSS) licenses are the
+> GNU Public License (GPL) and the BSD 3-clause license. The main
+> difference between them is that GPL forces users of your code to
+> publish their own code under the GPL itself, while the BSD makes
+> no such prescriptions.
+
+Follow [GitHub's
+instructions](https://help.github.com/articles/creating-a-new-repository)
+to create a new repository called "calc", with the description,
+"A simple Python calculator." Choose "initialise with a README", add a
+"Python" .gitignore, and the BSD 3-clause license.
+
+Once created, copy the URL from the box in the bottom right, and open
+a terminal window to *clone* the project from GitHub to your local
+machine.
 
 ```bash
-$ mkdir calculator; cd calculator
-$ git init
-$ vim calc.py
+$ git clone git@github.com:jni/calc.git
+$ cd calc
 ```
 
-A simple Python script to sum all command line arguments together:
+(Note: "jni" should be replaced by your own username, above.)
+
+Write a simple Python script, `calc.py` to sum all command line
+arguments together:
 
 ```python
 import sys
@@ -549,15 +575,50 @@ $ git commit
 
 # Working with Github
 
-Github is useful as a semi-centralised model.
+From earlier:
 
- - Creating a new repository: GitHub will offer nice conveniences, such as
-   adding a README file, a .gitignore file, and a license.
- - Choosing a license: No license implies closed source. The most popular
-   licenses are BSD and GPL.
- - forks and pull requests
+> Git is a tool to control revisions. GitHub is a web service centered
+> on git. It provides repository hosting as well as a suite of
+> workflows to aid collaboration.
 
-## Exercise 3: GitHub pull requests
+In this section you will learn about pushing, pulling, forks, and
+pull requests.
+
+## Mini-exercise: pushing your project back to GitHub
+
+You started out creating a project on GitHub, which you cloned to your
+own computer. All the changes you recorded since then are stored
+*locally*, on your computer. You need to explicitly tell git that you
+want to *push* the changes back to GitHub.
+
+To understand how to do this, you need to keep in mind that git is
+distributed: every copy of your data contains the entire history. There
+is nothing special about your local copy vs GitHub's copy vs the copy
+on your department's computing servers. Therefore, you have to deal
+with "remotes", which are your local git's address book of other copies
+of the history. Check it out:
+
+```bash
+$ git remote -v
+```
+
+That tells you the *name* of a remote, and its location. "origin" is
+the default name for the remote from which you cloned the current
+repository.
+
+Now, push your local changes back to the origin:
+
+```bash
+$ git push origin master:master
+```
+
+Read the above as "push to origin my branch "master" onto its branch
+"master".
+
+After this, you'll be able to refresh your repo page on GitHub and
+browse your code's history.
+
+## Exercise 4: GitHub pull requests
 
 Exercise. Pair up. Alice creates calc. repository. Bob *forks* that repository,
 creates a branch, makes changes, pushes branch to their fork, and then
@@ -575,16 +636,20 @@ Exercise. Work in threes. Alice creates calc. repository. Bob and Charlie each
 fork. Bob makes one set of changes, Charlie makes slightly incompatible set of
 changes. Bob’s changes get merged by Alice. Charlie needs to do a rebase.
 
+```
 git checkout master
 git remote add upstream <url>
 git pull upstream master
 git rebase master my-branch
+```
 
 <fix conflicted files>
 
+```
 git add <conflicted-file>
 git rebase --continue
 git push -f origin my-branch:my-branch
+```
 
 # Advanced topics
 
