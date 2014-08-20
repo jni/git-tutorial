@@ -294,6 +294,13 @@ Traceback (most recent call last):
 ValueError: invalid literal for int() with base 10: '7.8'
 ```
 
+> Note: you can use just the first few digits of the hash when checking
+> out a specific revision:
+
+> ```
+> git checkout <truncated-hash>
+> ```
+
 Thankfully, it's easy to go back to the latest version:
 
 ```
@@ -302,14 +309,15 @@ $ git checkout master
 
 ## Exercise 2: branches
 
-before changing to a different _branch_. We do this
-when we want to introduce new functionality that might break our existing code.
-(In practice, this is whenever we want to change anything!)
+Now you will undertake a major change to the structure of the code,
+to allow operations other than adding. However, because it's such a big
+change, you want to work in a different _branch_ from "master", so that
+you can keep using that one while fixing up the new stuff. In practice,
+almost _every_ change is significant enough to warrant a new branch,
+because "sprouting" one is cheap and easy.
 
 ```bash
-$ git commit -a # add all changes to tracked files
 $ git checkout master -b mult # make branch to add multiplication
-$ vim calc.py # add command structure
 ```
 
 The first set of changes lays the foundation for the new structure of the
@@ -325,15 +333,16 @@ if __name__ == '__main__':
     command = sys.argv[1]
     nums = map(float, sys.argv[2:])
     if command == 'add':
-        print add_all(nums)
+        print(add_all(nums))
 ```
 
-We commit those changes before adding a multiplication operation.
+Commit those changes:
 
 ```bash
 $ git commit -a
-$ vim calc.py # add multiplication
 ```
+
+... and add the multiplication operation:
 
 ```python
 import sys
@@ -348,20 +357,19 @@ if __name__ == '__main__':
     command = sys.argv[1]
     nums = map(float, sys.argv[2:])
     if command == 'add':
-        print add_all(nums)
+        print(add_all(nums))
     elif command == 'multiply':
-        print multiply_all(nums)
+        print(multiply_all(nums))
 ```
 
-Now we commit and return to the master branch for some unrelated changes:
+Now commit and return to the master branch for some unrelated changes:
 
 ```bash
 $ git commit -a
 $ git checkout master
-$ vim calc.py # add docstring
 ```
 
-We add a docstring to the module.
+Add a docstring to the module:
 
 ```python
 """calc.py: A simple Python calculator."""
@@ -371,7 +379,8 @@ if __name__ == '__main__':
     print sum(map(float, sys.argv[1:]))
 ```
 
-We commit those changes, and finally we merge in the mult branch. Git does the heavy lifting for us!
+Commit those changes, and finally merge in the mult branch. Git does
+the heavy lifting for you!
 
 ```bash
 $ git commit -a
@@ -394,10 +403,12 @@ if __name__ == '__main__':
     command = sys.argv[1]
     nums = map(float, sys.argv[2:])
     if command == 'add':
-        print add_all(nums)
+        print(add_all(nums))
     elif command == 'multiply':
-        print multiply_all(nums)
+        print(multiply_all(nums))
 ```
+
+Easy!
 
 ## Exercise 2: merge conflicts
 
