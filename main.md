@@ -410,11 +410,142 @@ if __name__ == '__main__':
 
 Easy!
 
-## Exercise 2: merge conflicts
+## Exercise 3: merge conflicts
 
-Create a branch, make some changes, then make overlapping changes in the master
-branch. When you try to merge, you will have a conflict that you'll have to
-fix.
+Sometimes, changes in a branch and changes in the master branch are too
+difficult to merge automatically, and `git merge` will result in a
+*merge conflict*. In this exercise, you will see how to deal with those.
+
+```
+$ git checkout master -b usage
+```
+
+Add a usage string to your file, which will print when the command is
+not recognised:
+
+```python
+"""calc.py: A simple Python calculator."""
+import sys
+
+def add_all(nums):
+    return sum(nums)
+
+def multiply_all(nums):
+    return reduce(lambda a, b: a * b, nums)
+
+if __name__ == '__main__':
+    command = sys.argv[1]
+    nums = map(float, sys.argv[2:])
+    if command == 'add':
+        print(add_all(nums))
+    elif command == 'multiply':
+        print(multiply_all(nums))
+    else:
+        usage = "calc.py [add|multiply] NUM1 [NUM2 [NUM3 [...]]]"
+        print(usage)
+```
+
+Commit your changes:
+
+```
+$ git commit -a
+```
+
+Now, create a *different* branch from master to add a `min` command,
+which will return the smallest of the list of numbers:
+
+```
+$ git checkout master -b minimum
+```
+
+And edit the file as follows:
+
+```python
+"""calc.py: A simple Python calculator."""
+import sys
+
+def add_all(nums):
+    return sum(nums)
+
+def multiply_all(nums):
+    return reduce(lambda a, b: a * b, nums)
+
+if __name__ == '__main__':
+    command = sys.argv[1]
+    nums = map(float, sys.argv[2:])
+    if command == 'add':
+        print(add_all(nums))
+    elif command == 'multiply':
+        print(multiply_all(nums))
+    elif command == 'min':
+        print(min(nums))
+```
+
+And commit your changes:
+
+```
+$ git commit -a
+```
+
+Finally, get back the master branch and try to merge each branch in
+sequence:
+
+```
+$ git checkout master
+$ git merge minimum
+$ git merge usage
+```
+
+At this point git will, technically speaking, *chuck a hissy fit*, and
+refuse to perform the merge:
+
+```
+<git error message>
+```
+
+You will have to go into the file and manually fix the conflicting
+changes. Git places markers on the file where it has found conflicts,
+so you can quickly identify those locations and decide on a fix:
+
+```python
+blah
+```
+
+In this case, you need to remove the markers and reorder the clauses so
+that `else` comes last. It's also a good opportunity to update the
+usage string! Get your file to this state and save it:
+
+```python
+"""calc.py: A simple Python calculator."""
+import sys
+
+def add_all(nums):
+    return sum(nums)
+
+def multiply_all(nums):
+    return reduce(lambda a, b: a * b, nums)
+
+if __name__ == '__main__':
+    command = sys.argv[1]
+    nums = map(float, sys.argv[2:])
+    if command == 'add':
+        print(add_all(nums))
+    elif command == 'multiply':
+        print(multiply_all(nums))
+    elif command == 'min':
+        print(min(nums))
+    else:
+        usage = "calc.py [add|multiply|min] NUM1 [NUM2 [NUM3 [...]]]"
+        print(usage)
+```
+
+Finally, tell git you've fixed the problem, and the merge will
+complete!
+
+```
+$ git add calc.py
+$ git commit
+```
 
 # Working with Github
 
