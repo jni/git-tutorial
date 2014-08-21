@@ -236,6 +236,13 @@ if __name__ == '__main__':
         print(multiply_all(nums))
 ```
 
+Make sure it works:
+
+```bash
+$ python calc.py multiply 5 6
+30.0
+```
+
 Now commit and return to the master branch for some unrelated changes:
 
 ```bash
