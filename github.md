@@ -104,9 +104,9 @@ showing that you've recently updated a branch and prompting you to
 *initiate a pull request*. This will tell Alice that you've made some
 changes to the code and you would like her to incorporate them into
 her project. Notice that you did this *without needing any special
-access from Alice!*. This is the magic of GitHub.
+access from Alice!* This is the magic of GitHub.
 
-(Ed Schofield's slide about commits to NumPy et al.)
+![GitHub's impact on FOSS](images/gh.png)
 
 Click on the PR button and fill in the form. Filling in a useful
 title and message here is very important!

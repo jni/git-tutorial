@@ -148,14 +148,37 @@ $ python calc.py 7.9 2.1
 
 You now have a *history* that you can look at and interact with:
 
-```
+```bash
 $ git log
+commit f868a7a83d8344420a89cab37c9d3437a2d6f771
+Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
+Date:   Thu Aug 21 12:59:02 2014 +1000
+
+    Add float support
+
+commit 2f39ef9e7549ddb80c5e1051507858f29f9c56ec
+Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
+Date:   Thu Aug 21 12:58:04 2014 +1000
+
+    Add main guard to follow best practice
+
+commit a9a8d720689b42c17f7f519c7559d5e084552a51
+Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
+Date:   Thu Aug 21 12:56:32 2014 +1000
+
+    Initial commit of main file
+
+commit 0036c68474f1f95d753ded70abdce68d6e9427fb
+Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
+Date:   Thu Aug 21 12:55:08 2014 +1000
+
+    Initial commit
 ```
 
 You can *check out* earlier versions of your code like so:
 
 ```
-$ git checkout <hash>
+$ git checkout a9a8d720689b42c17f7f519c7559d5e084552a51
 ```
 
 Now your code should error if you try using decimal points again:
@@ -172,7 +195,7 @@ ValueError: invalid literal for int() with base 10: '7.8'
 > out a specific revision:
 
 > ```
-> git checkout <truncated-hash>
+> git checkout a9a8d
 > ```
 
 Thankfully, it's easy to go back to the latest version:
@@ -234,6 +257,13 @@ if __name__ == '__main__':
         print(add_all(nums))
     elif command == 'multiply':
         print(multiply_all(nums))
+```
+
+Make sure it works:
+
+```bash
+$ python calc.py multiply 5 6
+30.0
 ```
 
 Now commit and return to the master branch for some unrelated changes:
