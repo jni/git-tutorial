@@ -625,7 +625,7 @@ creates a branch, makes changes, pushes branch to their fork, and then
 initiates a *pull request*. Original repo makes comments. Bob updates their
 branch, pushes to their own repo... PR is magically updated!
 
-## Exercise 4: Rebasing a GitHub PR
+## Exercise 5: Rebasing a GitHub PR
 
 Principle: _you_ should be the one doing the work. Maintaining a big open
 source project is work enough. Therefore, if your merge does not apply cleanly
