@@ -278,11 +278,34 @@ if __name__ == &apos;__main__&apos;:
 
 <p>You now have a <em>history</em> that you can look at and interact with:</p>
 
-<pre><code class="(null)">$ git log</code></pre>
+<pre><code class="bash">$ git log
+commit f868a7a83d8344420a89cab37c9d3437a2d6f771
+Author: Juan Nunez-Iglesias &lt;juan.n@unimelb.edu.au&gt;
+Date:   Thu Aug 21 12:59:02 2014 +1000
+
+    Add float support
+
+commit 2f39ef9e7549ddb80c5e1051507858f29f9c56ec
+Author: Juan Nunez-Iglesias &lt;juan.n@unimelb.edu.au&gt;
+Date:   Thu Aug 21 12:58:04 2014 +1000
+
+    Add main guard to follow best practice
+
+commit a9a8d720689b42c17f7f519c7559d5e084552a51
+Author: Juan Nunez-Iglesias &lt;juan.n@unimelb.edu.au&gt;
+Date:   Thu Aug 21 12:56:32 2014 +1000
+
+    Initial commit of main file
+
+commit 0036c68474f1f95d753ded70abdce68d6e9427fb
+Author: Juan Nunez-Iglesias &lt;juan.n@unimelb.edu.au&gt;
+Date:   Thu Aug 21 12:55:08 2014 +1000
+
+    Initial commit</code></pre>
 
 <p>You can <em>check out</em> earlier versions of your code like so:</p>
 
-<pre><code class="(null)">$ git checkout &lt;hash&gt;</code></pre>
+<pre><code class="(null)">$ git checkout a9a8d720689b42c17f7f519c7559d5e084552a51</code></pre>
 
 <p>Now your code should error if you try using decimal points again:</p>
 
@@ -296,7 +319,7 @@ ValueError: invalid literal for int() with base 10: &apos;7.8&apos;</code></pre>
 <p>Note: you can use just the first few digits of the hash when checking
 out a specific revision:</p>
 
-<pre><code>git checkout &lt;truncated-hash&gt;
+<pre><code>git checkout a9a8d
 </code></pre>
 </blockquote>
 
@@ -350,6 +373,11 @@ if __name__ == &apos;__main__&apos;:
         print(add_all(nums))
     elif command == &apos;multiply&apos;:
         print(multiply_all(nums))</code></pre>
+
+<p>Make sure it works:</p>
+
+<pre><code class="bash">$ python calc.py multiply 5 6
+30.0</code></pre>
 
 <p>Now commit and return to the master branch for some unrelated changes:</p>
 
