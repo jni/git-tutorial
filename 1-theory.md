@@ -1,4 +1,8 @@
-# Git theory
+---
+layout: page
+permalink: git-theory/
+title: Git theory
+---
 
 How does a repository work?
 
@@ -13,12 +17,12 @@ SHA1 and related algorithms have the nice property that if your files change
 _just a little bit_, their hash changes _dramatically_. For example, here are
 the SHA1 hashes of files containing just the string "hello" or "Hello":
 
-```
-$ echo "hello" | openssl dgst -sha1
-f572d396fae9206628714fb2ce00f72e94f2258f
-$ echo "Hello" | openssl dgst -sha1
-1d229271928d3f9e2bb0375bd6ce5db6c6d348d9
-```
+~~~
+    $ echo "hello" | openssl dgst -sha1
+    f572d396fae9206628714fb2ce00f72e94f2258f
+    $ echo "Hello" | openssl dgst -sha1
+    1d229271928d3f9e2bb0375bd6ce5db6c6d348d9
+~~~
 
 This gives your data security, because if someone messes with it, or if a file
 gets subtly corrupted, the hashes will no longer match and git will know about
@@ -44,9 +48,9 @@ of a file.
 
 Retrieving an earlier version of your work is then easy:
 
-```
+~~~
 $ git checkout <hash>
-```
+~~~
 
 This finds the version matching the supplied hash in the `.git` directory, and
 then copies it out to your working directory.
@@ -58,9 +62,9 @@ conveniences to avoid having to deal with them most of the time. The first is
 _tags_, which are simply alternate names for specific hashes. Thus, if you are
 writing a paper, you can tag the version you submit as follows:
 
-```
+~~~
 $ git tag submitted-version
-```
+~~~
 
 From then on, the name "`submitted-version`" will be associated with that
 committed version of your files.

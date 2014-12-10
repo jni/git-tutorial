@@ -1,4 +1,8 @@
-# Advanced topics
+---
+layout: page
+permalink: advanced-topics/
+title: Advanced topics
+---
 
  - Releases
  - cherry-picking

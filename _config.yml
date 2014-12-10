@@ -1,0 +1,26 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      pygments
+
+# Permalinks
+permalink:        pretty
+relative_permalinks: true
+
+# Setup
+title:            'OSS w Git & GitHub'
+tagline:          'A tutorial'
+description:      ''
+url:              http://jni.github.io/git-tutorial
+baseurl:          /
+
+author:
+  name:           'Juan Nunez-Iglesias'
+  url:            https://twitter.com/jnuneziglesias
+
+paginate:         1
+
+# Custom vars
+version:          2.0.0
+
+github:
+  repo:           https://github.com/jni/git-tutorial

@@ -1,8 +1,9 @@
-Title:  Git and Github: a tutorial
-Author: Juan Nunez-Iglesias
-Email:  jni.soma@gmail.com
+---
+layout: default
+title: Home
+---
 
-# <center> Git and Github: a tutorial </center>
+# <center> Open Source Science with Git and Github: a tutorial </center>
 
 There are (at least) three stages of git enlightenment:
 
@@ -41,10 +42,10 @@ control, even if you are working alone. Systems such as git save you from this.
 
 Click on the sections below to get started with git!
 
-- [Git theory](theory.md)
-- [Working with git](working.md)
-- [Working with GitHub](github.md)
-- [Advanced topics](advanced.md)
+- [Git theory](git-theory/)
+- [Working with git](working-with-git/)
+- [Working with GitHub](working-with-github/)
+- [Advanced topics](advanced-topics/)
 
 ## References
 
