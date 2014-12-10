@@ -1,3 +1,5 @@
+---
+---
 # Git theory
 
 How does a repository work?
