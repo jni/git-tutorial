@@ -1,4 +1,4 @@
-# Working with Github
+# Working with Github and Git
 
 From earlier:
 
