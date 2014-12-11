@@ -15,6 +15,16 @@ There are (at least) three stages of git enlightenment:
 It took me a long time to pass all three, and I hope this tutorial will help
 someone get there faster.
 
+# Tutorial timeline (approximate)
+
+0. Installing [git](http://git-scm.com) and getting a
+   [github](https://github.com) account (30min)
+1. Git theory (30min)
+2. Working with git (1h)
+3. Working with GitHub (1h)
+4. Advanced topics discussion (15min)
+5. Putting it together: submit improvements to this workshop! (45min)
+
 # What is Git and why do you want it?
 
 Git is a _revision control management system_[^git][^gitbook]. It helps you
