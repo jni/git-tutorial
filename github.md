@@ -187,7 +187,7 @@ git pull upstream master
 git rebase master my-branch
 ```
 
-<fix conflicted files>
+fix conflicted files
 
 ```
 git add <conflicted-file>
