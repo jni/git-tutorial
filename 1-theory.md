@@ -17,12 +17,12 @@ SHA1 and related algorithms have the nice property that if your files change
 _just a little bit_, their hash changes _dramatically_. For example, here are
 the SHA1 hashes of files containing just the string "hello" or "Hello":
 
-~~~
-    $ echo "hello" | openssl dgst -sha1
-    f572d396fae9206628714fb2ce00f72e94f2258f
-    $ echo "Hello" | openssl dgst -sha1
-    1d229271928d3f9e2bb0375bd6ce5db6c6d348d9
-~~~
+{% highlight bash %}
+$ echo "hello" | openssl dgst -sha1
+f572d396fae9206628714fb2ce00f72e94f2258f
+$ echo "Hello" | openssl dgst -sha1
+1d229271928d3f9e2bb0375bd6ce5db6c6d348d9
+{% endhighlight %}
 
 This gives your data security, because if someone messes with it, or if a file
 gets subtly corrupted, the hashes will no longer match and git will know about
