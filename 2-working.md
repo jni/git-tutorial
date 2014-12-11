@@ -414,7 +414,7 @@ changes. Git places markers on the file where it has found conflicts,
 so you can quickly identify those locations and decide on a fix:
 
 {% highlight python %}
-blah
+<python-conflict-file>
 {% endhighlight %}
 
 In this case, you need to remove the markers and reorder the clauses so
