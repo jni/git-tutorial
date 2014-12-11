@@ -406,7 +406,9 @@ At this point git will, technically speaking, *chuck a hissy fit*, and
 refuse to perform the merge:
 
 {% highlight console %}
-<git error message>
+Auto-merging calc.py
+CONFLICT (content): Merge conflict in calc.py
+Automatic merge failed; fix conflicts and then commit the result.
 {% endhighlight %}
 
 You will have to go into the file and manually fix the conflicting
@@ -414,7 +416,30 @@ changes. Git places markers on the file where it has found conflicts,
 so you can quickly identify those locations and decide on a fix:
 
 {% highlight python %}
-<python-conflict-file>
+"""calc.py: A simple Python calculator."""
+import sys
+
+def add_all(nums):
+    return sum(nums)
+
+def multiply_all(nums):
+    return reduce(lambda a, b: a * b, nums)
+
+if __name__ == '__main__':
+    command = sys.argv[1]
+    nums = map(float, sys.argv[2:])
+    if command == 'add':
+        print(add_all(nums))
+    elif command == 'multiply':
+        print(multiply_all(nums))
+<<<<<<< HEAD
+    elif command == 'min':
+        print(min(nums))
+=======
+    else:
+        usage = "calc.py [add|multiply] NUM1 [NUM2 [NUM3 [...]]]"
+        print(usage)
+>>>>>>> usage
 {% endhighlight %}
 
 In this case, you need to remove the markers and reorder the clauses so
