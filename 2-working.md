@@ -81,7 +81,7 @@ print(sum(map(int, sys.argv[1:])))
 
 Make sure it works:
 
-{% highlight cosole %}
+{% highlight console %}
 $ python calc.py 7 9
 16
 {% endhighlight %}
@@ -405,7 +405,7 @@ $ git merge usage
 At this point git will, technically speaking, *chuck a hissy fit*, and
 refuse to perform the merge:
 
-{% highlight %}
+{% highlight console %}
 <git error message>
 {% endhighlight %}
 
@@ -448,7 +448,7 @@ if __name__ == '__main__':
 Finally, tell git you've fixed the problem, and the merge will
 complete!
 
-{% highlight bash %}
+{% highlight console %}
 $ git add calc.py
 $ git commit
 {% endhighlight %}
