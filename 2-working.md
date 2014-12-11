@@ -24,10 +24,10 @@ The first thing you should do after installing git is setting your name and
 email, so that your changes are properly attributed when you commit them to a
 repo:
 
-~~~
+{% highlight console %}
 $ git config --global user.name "Juan Nunez-Iglesias"
 $ git config --global user.email "juan.n@unimelb.edu.au"
-~~~
+{% endhighlight %}
 
 (The `--global` tag means that this configuration should be used for all your
 git projects. You can change the setting for specific project, e.g. if you want
@@ -64,35 +64,35 @@ Once created, copy the URL from the box in the bottom right, and open
 a terminal window to *clone* the project from GitHub to your local
 machine.
 
-~~~bash
+{% highlight console %}
 $ git clone git@github.com:jni/calc.git
 $ cd calc
-~~~
+{% endhighlight %}
 
 (Note: "jni" should be replaced by your own username, above.)
 
 Write a simple Python script, `calc.py` to sum all command line
 arguments together:
 
-~~~python
+{% highlight python %}
 import sys
 print(sum(map(int, sys.argv[1:])))
-~~~
+{% endhighlight %}
 
 Make sure it works:
 
-~~~
+{% highlight cosole %}
 $ python calc.py 7 9
 16
-~~~
+{% endhighlight %}
 
 Tell git to add the file to its tracking system, and _commit_ your changes to
 the repository:
 
-~~~bash
+{% highlight console %}
 $ git add calc.py
 $ git commit
-~~~
+{% endhighlight %}
 
 You'll be asked to enter a *commit message*. This should summarise the changes
 you made and *why* you made them. The message should be readable without (much)
@@ -110,49 +110,47 @@ If you don't, Linus Torvalds will come after you and your family.
 In addition to the above English style guidelines, two other conventions are
 followed in the community:
 
-~~~
-Ensure first line is at most 50 chars long
-
-It should also not have a period at the end. The subsequent lines
-should be separated from the one-line summary by a blank line, and
-should be wrapped at 72 characters. This ensures readability in all
-text terminals.
-~~~
+> Ensure first line is at most 50 chars long
+> 
+> It should also not have a period at the end. The subsequent lines
+> should be separated from the one-line summary by a blank line, and
+> should be wrapped at 72 characters. This ensures readability in all
+> text terminals.
 
 ### ... back to the exercise
 
 Now add the `__main__` guard to the script, as is best practice in
 Python:
 
-~~~python
+{% highlight python %}
 import sys
 
 if __name__ == '__main__':
     print(sum(map(int, sys.argv[1:])))
-~~~
+{% endhighlight %}
 
 Commit those changes as above.
 
 Finally, add and commit another set of changes, allowing real numbers
 rather than just integers.
 
-~~~python
+{% highlight python %}
 import sys
 
 if __name__ == '__main__':
     print(sum(map(float, sys.argv[1:])))
-~~~
+{% endhighlight %}
 
 Test your changes again:
 
-~~~
+{% highlight console %}
 $ python calc.py 7.9 2.1
 10.0
-~~~
+{% endhighlight %}
 
 You now have a *history* that you can look at and interact with:
 
-~~~bash
+{% highlight console %}
 $ git log
 commit f868a7a83d8344420a89cab37c9d3437a2d6f771
 Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
@@ -177,36 +175,36 @@ Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
 Date:   Thu Aug 21 12:55:08 2014 +1000
 
     Initial commit
-~~~
+{% endhighlight %}
 
 You can *check out* earlier versions of your code like so:
 
-~~~
+{% highlight console %}
 $ git checkout a9a8d720689b42c17f7f519c7559d5e084552a51
-~~~
+{% endhighlight %}
 
 Now your code should error if you try using decimal points again:
 
-~~~
+{% highlight console %}
 $ python calc.py 7.9 2.1
 Traceback (most recent call last):
   File "calc.py", line 2, in <module>
     print(sum(map(int, sys.argv[1:])))
 ValueError: invalid literal for int() with base 10: '7.8'
-~~~
+{% endhighlight %}
 
 > Note: you can use just the first few digits of the hash when checking
 > out a specific revision:
-
-> ~~~
+> 
+> {% highlight console %}
 > git checkout a9a8d
-> ~~~
+> {% endhighlight %}
 
 Thankfully, it's easy to go back to the latest version:
 
-~~~
+{% highlight console %}
 $ git checkout master
-~~~
+{% endhighlight %}
 
 ## Exercise 2: branches
 
@@ -217,14 +215,14 @@ you can keep using that one while fixing up the new stuff. In practice,
 almost _every_ change is significant enough to warrant a new branch,
 because "sprouting" one is cheap and easy.
 
-~~~bash
+{% highlight console %}
 $ git checkout master -b mult # make branch to add multiplication
-~~~
+{% endhighlight %}
 
 The first set of changes lays the foundation for the new structure of the
 program, which will allow arbitrary operations to the input.
 
-~~~python
+{% highlight python %}
 import sys
 
 def add_all(nums):
@@ -235,17 +233,17 @@ if __name__ == '__main__':
     nums = map(float, sys.argv[2:])
     if command == 'add':
         print(add_all(nums))
-~~~
+{% endhighlight %}
 
 Commit those changes:
 
-~~~bash
+{% highlight console %}
 $ git commit -a
-~~~
+{% endhighlight %}
 
 ... and add the multiplication operation:
 
-~~~python
+{% highlight python %}
 import sys
 
 def add_all(nums):
@@ -261,43 +259,43 @@ if __name__ == '__main__':
         print(add_all(nums))
     elif command == 'multiply':
         print(multiply_all(nums))
-~~~
+{% endhighlight %}
 
 Make sure it works:
 
-~~~bash
+{% highlight console %}
 $ python calc.py multiply 5 6
 30.0
-~~~
+{% endhighlight %}
 
 Now commit and return to the master branch for some unrelated changes:
 
-~~~bash
+{% highlight console %}
 $ git commit -a
 $ git checkout master
-~~~
+{% endhighlight %}
 
 Add a docstring to the module:
 
-~~~python
+{% highlight python %}
 """calc.py: A simple Python calculator."""
 import sys
 
 if __name__ == '__main__':
     print sum(map(float, sys.argv[1:]))
-~~~
+{% endhighlight %}
 
 Commit those changes, and finally merge in the mult branch. Git does
 the heavy lifting for you!
 
-~~~bash
+{% highlight console %}
 $ git commit -a
 $ git merge mult
-~~~
+{% endhighlight %}
 
 Git automatically generates a log message and produces the merged file:
 
-~~~python
+{% highlight python %}
 """calc.py: A simple Python calculator."""
 import sys
 
@@ -314,7 +312,7 @@ if __name__ == '__main__':
         print(add_all(nums))
     elif command == 'multiply':
         print(multiply_all(nums))
-~~~
+{% endhighlight %}
 
 Easy!
 
@@ -324,14 +322,14 @@ Sometimes, changes in a branch and changes in the master branch are too
 difficult to merge automatically, and `git merge` will result in a
 *merge conflict*. In this exercise, you will see how to deal with those.
 
-~~~
+{% highlight console %}
 $ git checkout master -b usage
-~~~
+{% endhighlight %}
 
 Add a usage string to your file, which will print when the command is
 not recognised:
 
-~~~python
+{% highlight python %}
 """calc.py: A simple Python calculator."""
 import sys
 
@@ -351,24 +349,24 @@ if __name__ == '__main__':
     else:
         usage = "calc.py [add|multiply] NUM1 [NUM2 [NUM3 [...]]]"
         print(usage)
-~~~
+{% endhighlight %}
 
 Commit your changes:
 
-~~~
+{% highlight console %}
 $ git commit -a
-~~~
+{% endhighlight %}
 
 Now, create a *different* branch from master to add a `min` command,
 which will return the smallest of the list of numbers:
 
-~~~
+{% highlight console %}
 $ git checkout master -b minimum
-~~~
+{% endhighlight %}
 
 And edit the file as follows:
 
-~~~python
+{% highlight python %}
 """calc.py: A simple Python calculator."""
 import sys
 
@@ -387,37 +385,37 @@ if __name__ == '__main__':
         print(multiply_all(nums))
     elif command == 'min':
         print(min(nums))
-~~~
+{% endhighlight %}
 
 And commit your changes:
 
-~~~
+{% highlight console %}
 $ git commit -a
-~~~
+{% endhighlight %}
 
 Finally, get back the master branch and try to merge each branch in
 sequence:
 
-~~~
+{% highlight console %}
 $ git checkout master
 $ git merge minimum
 $ git merge usage
-~~~
+{% endhighlight %}
 
 At this point git will, technically speaking, *chuck a hissy fit*, and
 refuse to perform the merge:
 
-~~~
+{% highlight %}
 <git error message>
-~~~
+{% endhighlight %}
 
 You will have to go into the file and manually fix the conflicting
 changes. Git places markers on the file where it has found conflicts,
 so you can quickly identify those locations and decide on a fix:
 
-~~~python
+{% highlight python %}
 blah
-~~~
+{% endhighlight %}
 
 In this case, you need to remove the markers and reorder the clauses so
 that `else` comes last. It's also a good opportunity to update the

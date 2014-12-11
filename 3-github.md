@@ -27,9 +27,9 @@ on your department's computing servers. Therefore, you have to deal
 with "remotes", which are your local git's address book of other copies
 of the history. Check it out:
 
-~~~bash
+{% highlight console %}
 $ git remote -v
-~~~
+{% endhighlight %}
 
 That tells you the *name* of a remote, and its location. "origin" is
 the default name for the remote from which you cloned the current
@@ -37,9 +37,9 @@ repository.
 
 Now, push your local changes back to the origin:
 
-~~~bash
+{% highlight console %}
 $ git push origin master:master
-~~~
+{% endhighlight %}
 
 Read the above as "push to origin my branch "master" onto its branch
 "master".
@@ -64,13 +64,13 @@ you can then clone on your machine as before.
 You want to add the "max" function to the list of available commands.
 Remember to *create a new branch!*
 
-~~~
+{% highlight console %}
 $ git checkout master -b max
-~~~
+{% endhighlight %}
 
 Edit the `calc.py` file to look like so (notice the new "max" command):
 
-~~~python
+{% highlight python %}
 """calc.py: A simple Python calculator."""
 import sys
 
@@ -94,14 +94,14 @@ if __name__ == '__main__':
     else:
         usage = "calc.py [add|multiply|min] NUM1 [NUM2 [NUM3 [...]]]"
         print(usage)
-~~~
+{% endhighlight %}
 
 Now commit those changes and push them to a new branch on GitHub:
 
-~~~bash
+{% highlight console %}
 $ git commit -a
 $ git push origin max:max
-~~~
+{% endhighlight %}
 
 Go to the GitHub page for the project. You should see a new button
 showing that you've recently updated a branch and prompting you to
@@ -126,22 +126,22 @@ know that this needs fixing before she will accept his changes.
 You can now go back to your computer, and make the requested change:
 update this line:
 
-~~~python
+{% highlight python %}
         usage = "calc.py [add|multiply|min] NUM1 [NUM2 [NUM3 [...]]]"
-~~~
+{% endhighlight %}
 
 to look like this:
 
-~~~python
+{% highlight python %}
         usage = "calc.py [add|multiply|min|max] NUM1 [NUM2 [NUM3 [...]]]"
-~~~
+{% endhighlight %}
 
 Again, commit and push your changes:
 
-~~~bash
+{% highlight console %}
 $ git commit -a
 $ git push origin max:max
-~~~
+{% endhighlight %}
 
 If both you and Alice go back to the PR page, you will see that it has
 been automagically updated with your new changes! (You may need to
