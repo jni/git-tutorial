@@ -187,7 +187,12 @@ git pull upstream master
 git rebase master my-branch
 ```
 
-<fix conflicted files>
+You've updated your master branch to the latest version, including Bob's merged
+changes, and started rebasing your branch on the updated master branch. In many
+cases, git will figure it out automatically. However, in this case we have
+conflicting changes, and we need to resolve these manually, similar to
+`git merge`. Go ahead and resolve the conflicts as before, before telling git
+to continue with the rebase process.
 
 ```
 git add <conflicted-file>
