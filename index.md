@@ -17,8 +17,7 @@ someone get there faster.
 
 # Tutorial timeline (approximate)
 
-0. Installing [git](http://git-scm.com) and getting a
-   [github](https://github.com) account (30min)
+0. Installing and setting up git, GitHub, and others (30min)
 1. Git theory (30min)
 2. Working with git (1h)
 3. Working with GitHub (1h)
@@ -52,6 +51,7 @@ control, even if you are working alone. Systems such as git save you from this.
 
 Click on the sections below to get started with git!
 
+- [Installation and setup](installation/)
 - [Git theory](git-theory/)
 - [Working with git](working-with-git/)
 - [Working with GitHub](working-with-github/)
