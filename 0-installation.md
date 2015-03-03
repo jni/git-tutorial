@@ -59,6 +59,12 @@ without needing a GUI git client:
 $ git config --global alias.lsd "log --graph --decorate --pretty=oneline --abbrev-commit --all"
 {% endhighlight %}
 
+Then you can get a nice history *within your terminal* by typing:
+
+{% highlight console %}
+$ git lsd
+{% endhighlight %}
+
 ---
 
 Whew! That's quite a lot of stuff! But I hope by the end of the tutorial you'll
