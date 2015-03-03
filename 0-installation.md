@@ -25,7 +25,7 @@ To work with this tutorial, you're going to need a few things:
   [github.com](https://github.com).
 - **SSH keys to access GitHub**. Without these, you will need to type your
   GitHub password every single time you try to do read from or write to your
-  GitHub account. (Which will be many, many time! ;) Follow the instructions
+  GitHub account. (Which will be many, many times! ;) Follow the instructions
   [here](https://help.github.com/articles/generating-ssh-keys/), making sure
   that you are seeing the instructions for your OS (Mac, Windows, or Linux).
 
