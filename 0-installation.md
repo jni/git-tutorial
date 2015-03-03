@@ -45,19 +45,19 @@ want to download it no matter what your OS! It's awesome!)
 Additionally, you'll want to set up git so that it knows your full name and
 email address. Fire up a console/terminal, and type:
 
-```console
+{% highlight console %}
 $ git config --global user.name "Your Name"
 $ git config --global user.email your.name@email.com
-```
+{% endhighlight %}
 
 (Use the same email you used for your GitHub account.)
 
 The following command also lets you see a rudimentary graphic of your history
 without needing a GUI git client:
 
-```console
+{% highlight console %}
 $ git config --global alias.lsd "log --graph --decorate --pretty=oneline --abbrev-commit --all"
-```
+{% endhighlight %}
 
 ---
 
