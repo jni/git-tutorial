@@ -10,8 +10,8 @@ relative_permalinks: true
 title:            'OSS w Git & GitHub'
 tagline:          'A tutorial'
 description:      ''
-url:              http://jni.github.io/git-tutorial/
-baseurl:          http://jni.github.io/git-tutorial/
+url:              http://jni.github.io/git-tutorial
+baseurl:          http://jni.github.io/git-tutorial
 
 author:
   name:           'Juan Nunez-Iglesias'
