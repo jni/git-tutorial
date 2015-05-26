@@ -10,8 +10,10 @@ From earlier:
 > on git. It provides repository hosting as well as a suite of
 > workflows to aid collaboration.
 
-In this section you will learn about pushing, pulling, forks, and
-pull requests.
+In this section you will learn about *remote repositories*, which are
+histories that are not next to your working directory. The operations
+involved in using these include pushing, pulling, forking, and pull
+requests.
 
 ## Mini-exercise: pushing your project back to GitHub
 
@@ -28,10 +30,21 @@ with "remotes", which are your local git's address book of other copies
 of the history. Check it out:
 
 {% highlight console %}
-$ git remote -v
+$ git remote
+origin
 {% endhighlight %}
 
-That tells you the *name* of a remote, and its location. "origin" is
+Git is saying that it knows about a single remote repository, called
+origin. To see what it knows *about* this remote, use the `-v` (verbose)
+flag:
+
+{% highlight console %}
+$ git remote -v
+origin	git@github.com:jni/planets.git (fetch)
+origin	git@github.com:jni/planets.git (push)
+{% endhighlight %}
+
+That tells both the name of the remote, *and its location*. "origin" is
 the default name for the remote from which you cloned the current
 repository.
 
@@ -41,7 +54,7 @@ Now, push your local changes back to the origin:
 $ git push origin master:master
 {% endhighlight %}
 
-Read the above as "push to origin my branch "master" onto its branch
+Read the above as "push to "origin" my branch "master" onto its branch
 "master".
 
 After this, you'll be able to refresh your repo page on GitHub and
@@ -53,59 +66,64 @@ For this exercise you will have to pair up with your neighbour, which
 we will name Alice. (And your name is Bob, in keeping with the computer
 science literature.)
 
-Delete your "calc" repository on GitHub (this is done under "Settings"
+Delete your "planets" repository on GitHub (this is done under "Settings"
 in the right-hand menu). You've realised that Alice has her own and
-that you can both save effort by collaborating.
+that you can both save effort by collaborating on this project. You, being
+human, want to make sure that concerns for human crew members are noted.
 
-Navigate to Alice's repository on GitHub, and click the "Fork" button.
+Navigate to Alice's repository on GitHub
+(https://github.com/[Alice's username]/planets), and click the "Fork" button.
 This will create a copy of Alice's repo on your GitHub account, which
-you can then clone on your machine as before.
-
-You want to add the "max" function to the list of available commands.
-Remember to *create a new branch!*
-
-{% highlight console %}
-$ git checkout master -b max
-{% endhighlight %}
-
-Edit the `calc.py` file to look like so (notice the new "max" command):
-
-{% highlight python %}
-"""calc.py: A simple Python calculator."""
-import sys
-
-def add_all(nums):
-    return sum(nums)
-
-def multiply_all(nums):
-    return reduce(lambda a, b: a * b, nums)
-
-if __name__ == '__main__':
-    command = sys.argv[1]
-    nums = map(float, sys.argv[2:])
-    if command == 'add':
-        print(add_all(nums))
-    elif command == 'multiply':
-        print(multiply_all(nums))
-    elif command == 'min':
-        print(min(nums))
-    elif command == 'max':
-        print(max(nums))
-    else:
-        usage = "calc.py [add|multiply|min] NUM1 [NUM2 [NUM3 [...]]]"
-        print(usage)
-{% endhighlight %}
-
-Now commit those changes and push them to a new branch on GitHub:
+you can then clone on your machine as before. But note that you need to
+delete your existing repository! Instructions below (some of the directories
+and obviously the "bob" username needs to be changed to yours!):
 
 {% highlight console %}
-$ git commit -a
-$ git push origin max:max
+$ pwd
+/Users/bob/projects/planets
+$ cd ..
+$ rm -rf planets
+$ git clone git@github.com:bob/planets.git
+$ cd planets
+$ git checkout -b humans
+{% endhighlight %}
+
+Edit the `mars.txt` file to look like so:
+
+~~~
+# Mars
+
+## Properties pertaining to monster habitability
+
+Mars is cold and dry, but everything is Dracula's favourite colour.
+The two moons may be a problem for Wolfman,
+but the Mummy will appreciate the lack of humidity.
+
+## Properties pertaining to human habitability
+
+We will need to make our own oxygen.
+~~~
+
+Now commit those changes and push them to a new branch on GitHub. If you use
+the `--set-upstream` function, you tell git to create a branch with the same
+name that "tracks" the current branch. This makes future pushes easier.
+
+{% highlight console %}
+$ git commit -a -m "Add human concerns about oxygen"
+$ git push origin --set-upstream humans
 {% endhighlight %}
 
 Go to the GitHub page for the project. You should see a new button
 showing that you've recently updated a branch and prompting you to
-*initiate a pull request*. This will tell Alice that you've made some
+*initiate a pull request*.
+
+Here's how this works: you don't know Alice. You probably have never met
+her. So it's natural that you can't just push random stuff willy-nilly to her
+repository. However, you do have a *shared history*, because you *forked* hers,
+and *she* has access to your new changes. So, instead of *pushing* your
+changes, you ask *her* to *pull* from your own history.
+
+The PR will tell Alice that you've made some
 changes to the code and you would like her to incorporate them into
 her project. Notice that you did this *without needing any special
 access from Alice!* This is the magic of GitHub.
@@ -115,52 +133,123 @@ access from Alice!* This is the magic of GitHub.
 Click on the PR button and fill in the form. Filling in a useful
 title and message here is very important!
 
+> ### Pull request etiquette
+> 
+> Make sure your title and description are informative. 99% of the time, when
+> you make a pull request (PR), the person on the other end is very busy, knows
+> no background about the PR and doesn't understand why you made the changes
+> you made. In general, the onus is on the requester to comply with all the
+> repository's formatting guidelines and so forth. By convention, many
+> repositories have a `CONTRIBUTING.txt` file explaining the contribution
+> process. If it's there, be sure to read it before submitting a PR!
+> 
+> When in Rome, do as the Romans do. Look at their existing codebase
+> and try to follow their example. (This is not to say that you can't
+> improve on it; but make sure your documentation and testing *at
+> least* meets their standards.)
+
+
+
 Alice should get an email notification that there is a pull request to
 her project. Clicking on it, she will be taken to the web form for the
-PR, where she can examine the changes that Bob has made.
+PR, where she can examine the changes that Bob has made (the "Files changed"
+tab).
 
-Alice will notice that the "usage" string is now out of date. She can
-comment directly on the relevant lines of code in the PR, letting Bob
-know that this needs fixing before she will accept his changes.
+Alice will note that this sentence would be made much more useful if it
+included some guidance about *how* to make oxygen on Mars. She comments on the
+PR page: "Thanks! Could you add a line about how this could be achieved?"
 
-You can now go back to your computer, and make the requested change:
-update this line:
+After some web searching, Bob discovers that Mars has plenty of carbon dioxyde,
+so he suggests extracting the oxygen from that.
 
-{% highlight python %}
-        usage = "calc.py [add|multiply|min] NUM1 [NUM2 [NUM3 [...]]]"
-{% endhighlight %}
+~~~
+# Mars
 
-to look like this:
+## Properties pertaining to monster habitability
 
-{% highlight python %}
-        usage = "calc.py [add|multiply|min|max] NUM1 [NUM2 [NUM3 [...]]]"
-{% endhighlight %}
+Mars is cold and dry, but everything is Dracula's favourite colour.
+The two moons may be a problem for Wolfman,
+but the Mummy will appreciate the lack of humidity.
 
-Again, commit and push your changes:
+## Properties pertaining to human habitability
+
+We will need to make our own oxygen.
+We can extract it from CO2, which is plentiful on Mars.
+~~~
+
+Again, Bob commits and pushes his changes:
 
 {% highlight console %}
-$ git commit -a
-$ git push origin max:max
+$ git commit -a -m "Specify how to obtain oxygen on Mars"
+$ git push  # no need to specify repo or branch anymore, having `set-upstream`
 {% endhighlight %}
 
-If both you and Alice go back to the PR page, you will see that it has
-been automagically updated with your new changes! (You may need to
+If both Bob and Alice go back to the PR page, they will see that the PR has
+been automagically updated with Bob's new changes! (Though they may need to
 refresh the page.)
 
 Alice, satisfied with the update, can now click on the "Merge pull
 request" button and incorporate Bob's changes to her code!
 
-## Notes on contributing to open source projects
+One last thing needs to happen to really synchronise everyone's histories.
+Although Alice has Bob's changes, *Bob doesn't have Alice's commit
+incorporating his changes.* If he continues to work on his `humans` branch,
+their histories will diverge. And if he works on his `master` branch, his
+changes won't be there!
 
-- Always look at their README file, and their CONTRIBUTING file if they
-  have one. Read them carefully so that you follow their conventions.
-- You can expect to do most of the work. Maintaining a large open
-  source project is a lot of work, and authors rarely have the time to
-  clean up after you.
-- When in Rome, do as the Romans do. Look at their existing codebase
-  and try to follow their example. (This is not to say that you can't
-  improve on it; but make sure your documentation and testing *at
-  least* meets their standards.)
+The solution is for him to *pull* from *Alice's* repository. For this, he needs
+to add it to his list of remotes (remember remotes?):
+
+{% highlight console %}
+$ git remote -v
+origin	git@github.com:bob/planets.git (fetch)
+origin	git@github.com:bob/planets.git (push)
+$ git remote add upstream git@github.com:alice/planets.git
+$ git remote -v
+origin	git@github.com:bob/planets.git (fetch)
+origin	git@github.com:bob/planets.git (push)
+upstream	git@github.com:alice/planets.git (fetch)
+upstream	git@github.com:alice/planets.git (push)
+$ git checkout master
+$ git pull upstream master  # get upstream's master branch, and merge
+{% endhighlight %}
+
+Bob can now inspect his history log and see that both his changes and Alice's
+merge are there:
+
+{% highlight console %}
+$ git lsd
+*   3fb6c83 (HEAD, master) Merge branch 'humans'
+|\  
+| * c00e290 (humans) Specify how to obtain oxygen on Mars
+| * 49ad7b0 Add human concerns about oxygen
+|/  
+*   1fb7977 Merge branch 'pedant'
+|\  
+| * 50726c3 (pedant) Complete first sentence
+* | 37d72a7 (third-person) Change Dracula reference to the third person
+|/  
+*   2905d8d Merge branch 'headings'
+|\  
+| * c932703 (headings) Add heading for human-specific concerns
+| * 14dde3e Add title and heading
+* | 730d526 Improve English style by replacing 2 with two
+|/  
+* 37aa3b5 Note Mummy's preference for Martian atmosphere
+* 7126926 Add concerns about effect of moons on Wolfman
+* 3e1d628 Start notes on Mars as a base
+* 2407f61 (origin/master, origin/HEAD) Initial commit
+{% endhighlight %}
+
+And all his branches that have been merged back can be safely deleted:
+
+{% highlight console %}
+$ git branch -d humans pedant third-person headings
+{% endhighlight %}
+
+## Bonus exercise 1
+
+
 
 ## Notes on why you should make your own code open source
 
