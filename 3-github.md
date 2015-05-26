@@ -219,7 +219,7 @@ merge are there:
 
 {% highlight console %}
 $ git lsd
-*   3fb6c83 (HEAD, master) Merge branch 'humans'
+*   3fb6c83 (HEAD, master) Merge pull request #1 from bob/humans
 |\  
 | * c00e290 (humans) Specify how to obtain oxygen on Mars
 | * 49ad7b0 Add human concerns about oxygen
@@ -249,7 +249,49 @@ $ git branch -d humans pedant third-person headings
 
 ## Bonus exercise 1
 
+Do the reverse approach, which is a bit different. Alice has gained a
+collaborator in Bob. Even though she still maintains control of the project
+repository, she wants to enlist his help. She sprouts a branch, adds a line or
+two (at the risk of mixing metaphors, an example:
+Medusa might appreciate the lack of reflective surfaces), then
+*creates a PR against her own repository.* She then asks Bob to review her
+change by mentioning his username (e.g. `@bob`, as in Twitter) in a comment on
+the PR page. Only when Bob gives his ok (or perhaps he spots a typo) does she
+merge.
 
+This practice of requesting code reviews for pull requests, even when you
+control the repository, is universal among programming teams, because it
+dramatically improves the quality of the code. Two pairs of eyes are more than
+twice as effective as one pair.
+
+## Bonus exercise 2
+
+Bob pulls Alice's latest changes. He then works on a new section about
+*agriculture on Mars*. (e.g. Dracula vetoes any wishes to bring garlic, while
+Wolfman insists on taking a flock of sheep.) He submits his pull request.
+
+Meanwhile, Alice makes her own
+changes, adding a (blank) section on rocket fuel requirements.
+
+Bob's pull request now shows a greyed out "Merge" button, because there are
+merge conflicts! Unlike before, you don't have access to the history on GitHub,
+so you can't just proceed with the merge and fix the merge conflicts.
+
+The common solution is to *rebase*, that is, to replay the changes on Bob's
+branch on top of the latest `master` from Alice's repository.
+
+{% highlight console %}
+$ git checkout master
+$ git pull upstream master
+$ git rebase master agriculture
+{% endhighlight %}
+
+During the rebase, Bob will have merge conflicts. He needs to fix these as
+before, `git add` the file, and then `git rebase --continue` to complete the
+rebase.
+
+Finally, Bob will try to push back to his GitHub account but this will fail.
+(Why?) The solution is to use `git push --force-with-lease`.
 
 ## Notes on why you should make your own code open source
 
@@ -261,29 +303,3 @@ $ git branch -d humans pedant third-person headings
 - If someone *does* look at your code and find it useful, chances are
   that you will have gained a new collaborator, not a competitor.
 - It is just good scientific practice!
-
-## Exercise 5: Rebasing a GitHub PR
-
-Principle: _you_ should be the one doing the work. Maintaining a big open
-source project is work enough. Therefore, if your merge does not apply cleanly
-(because the master has changed since you started your work), you need to
-_rebase_ your changes on top of the current master.
-
-Exercise. Work in threes. Alice creates calc. repository. Bob and Charlie each
-fork. Bob makes one set of changes, Charlie makes slightly incompatible set of
-changes. Bob’s changes get merged by Alice. Charlie needs to do a rebase.
-
-~~~
-git checkout master
-git remote add upstream <url>
-git pull upstream master
-git rebase master my-branch
-~~~
-
-<fix conflicted files>
-
-~~~
-git add <conflicted-file>
-git rebase --continue
-git push -f origin my-branch:my-branch
-~~~
