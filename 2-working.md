@@ -86,9 +86,9 @@ Mars.
 
 In your editor, type:
 
-{% highlight markdown %}
+~~~
 Cold and dry, but everything is my favourite colour.
-{% endhighlight %}
+~~~
 
 And save it to a file called `mars.txt` in the `planets` directory.
 
@@ -112,7 +112,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 Tell git to add the file to its tracking system:
 
 {% highlight console %}
-$ git add calc.py
+$ git add mars.txt
 $ git status
 On branch master
 Your branch is up-to-date with 'origin/master'.
@@ -164,10 +164,10 @@ followed in the community:
 
 Add another line, to the file, so that it reads as follows:
 
-{% highlight markdown %}
+~~~
 Cold and dry, but everything is my favourite colour.
 The 2 moons may be a problem for Wolfman.
-{% endhighlight %}
+~~~
 
 As before, we can check the status:
 
@@ -215,11 +215,11 @@ $ git commit --all --message "Add concerns about effect of moons on Wolfman"
 
 Finally, let's add a line about the Mummy's preferences:
 
-{% highlight markdown %}
+~~~
 Cold and dry, but everything is my favourite colour.
 The 2 moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
-{% endhighlight %}
+~~~
 
 (Note the comma at the end of the second line.)
 
@@ -359,7 +359,7 @@ computer!)
 
 Now let's change the style of the text to be a bit less robotic:
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -367,7 +367,7 @@ Now let's change the style of the text to be a bit less robotic:
 Cold and dry, but everything is my favourite colour.
 The 2 moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
-{% endhighlight %}
+~~~
 
 Commit that change:
 
@@ -377,7 +377,7 @@ $ git commit -a -m "Add title and heading"
 
 ... and add a heading for human-focused concerns:
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -387,7 +387,7 @@ The 2 moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
 
 ## Properties pertaining to human habitability
-{% endhighlight %}
+~~~
 
 Now commit, return to the master branch, and make some unrelated changes:
 
@@ -398,11 +398,11 @@ $ git checkout master
 
 Replace the number "2" with the word "two":
 
-{% highlight python %}
+~~~
 Cold and dry, but everything is my favourite colour.
 The two moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
-{% endhighlight %}
+~~~
 
 And commit those changes:
 
@@ -420,7 +420,7 @@ $ git merge headings  # merge branch 'headings' into current branch ('master')
 
 Git automatically generates a log message and produces the merged file:
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -430,7 +430,7 @@ The two moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
 
 ## Properties pertaining to human habitability
-{% endhighlight %}
+~~~
 
 Easy!
 
@@ -451,7 +451,7 @@ $ git checkout -b third-person
 (Use your `sprout` alias if you made one! I leave the "canonical form" here
 for those that haven't, or that mysteriously skipped the alias section.)
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -461,7 +461,7 @@ The two moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
 
 ## Properties pertaining to human habitability
-{% endhighlight %}
+~~~
 
 Commit the change:
 
@@ -480,7 +480,7 @@ $ git checkout -b pedant
 
 And edit the file as follows:
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -490,7 +490,7 @@ The two moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
 
 ## Properties pertaining to human habitability
-{% endhighlight %}
+~~~
 
 And commit our changes:
 
@@ -520,7 +520,7 @@ We must go into the file and manually fix the conflicting
 changes. Git places markers on the file where it has found conflicts,
 so you can quickly identify those locations and decide on a fix:
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -534,7 +534,7 @@ The two moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
 
 ## Properties pertaining to human habitability
-{% endhighlight %}
+~~~
 
 Git is saying that in the current branch ("HEAD"), the file at that
 position contains the single line, "Cold and dry, but everything is
@@ -547,7 +547,7 @@ the two conflicting versions, leaving the file as you want it to be
 committed: removing the markers, and combining the changes in a way
 that makes sense, and that a system like git can't figure out by itself.
 
-{% highlight markdown %}
+~~~
 # Mars
 
 ## Properties pertaining to monster habitability
@@ -557,7 +557,7 @@ The two moons may be a problem for Wolfman,
 but the Mummy will appreciate the lack of humidity.
 
 ## Properties pertaining to human habitability
-{% endhighlight %}
+~~~
 
 Finally, tell git you've fixed the problem by `git add`ing the file,
 commit, and the merge will complete!
