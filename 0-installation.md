@@ -29,16 +29,6 @@ To work with this tutorial, you're going to need a few things:
   [here](https://help.github.com/articles/generating-ssh-keys/), making sure
   that you are seeing the instructions for your OS (Mac, Windows, or Linux).
 
-Additionally, the tutorial is going to be led in Python. If you're familiar
-with a different programming language, feel free to convert what we write to
-that language! At the start of the tutorial, we'll try to pair up by
-programming language preference.
-
-For those that don't have a preference, you probably want to have Python
-installed. On Mac and Linux, everything should work out of the box, but for
-Windows, you'll want to download the
-[Anaconda Python distribution](http://continuum.io/downloads). (You probably
-want to download it no matter what your OS! It's awesome!)
 
 ## Setup
 
