@@ -543,7 +543,7 @@ are trying to merge, contains the line, "Mars is cold and dry, but
 everything is my favourite colour."
 
 You fix merge conflicts by navigating to the `<<<<<<<` markers, comparing
-the two conflicting versions, leaving the file as you want it to be
+the two conflicting versions, and leaving the file as you want it to be
 committed: removing the markers, and combining the changes in a way
 that makes sense, and that a system like git can't figure out by itself.
 
