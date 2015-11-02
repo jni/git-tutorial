@@ -202,7 +202,7 @@ prompt you to use `git commit -a` or `git commit --all`, which is kind
 of like saying, "ok, *everyone in this one!*". However, it's almost
 always better to explicitly add things to the staging area, because
 you might otherwise commit changes you forgot you made. Going back to
-the project snaphsots, you might get the extra with the incomplete
+the snapshots analogy, you might get the extra with the incomplete
 makeup walking in and ruining the picture because you used `-a`! Try
 to stage things manually, or you might find yourself searching for
 "git undo commit" more than you would like!
