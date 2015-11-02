@@ -202,7 +202,7 @@ prompt you to use `git commit -a` or `git commit --all`, which is kind
 of like saying, "ok, *everyone in this one!*". However, it's almost
 always better to explicitly add things to the staging area, because
 you might otherwise commit changes you forgot you made. Going back to
-the project snaphsots, you might get the extra with the incomplete
+the snapshots analogy, you might get the extra with the incomplete
 makeup walking in and ruining the picture because you used `-a`! Try
 to stage things manually, or you might find yourself searching for
 "git undo commit" more than you would like!
@@ -372,7 +372,8 @@ but the Mummy will appreciate the lack of humidity.
 Commit that change:
 
 {% highlight console %}
-$ git commit -a -m "Add title and heading"
+$ git add mars.txt
+$ git commit -m "Add title and heading"
 {% endhighlight %}
 
 ... and add a heading for human-focused concerns:
@@ -392,7 +393,8 @@ but the Mummy will appreciate the lack of humidity.
 Now commit, return to the master branch, and make some unrelated changes:
 
 {% highlight console %}
-$ git commit -a -m "Add heading for human-specific concerns"
+$ git add mars.txt
+$ git commit -m "Add heading for human-specific concerns"
 $ git checkout master
 {% endhighlight %}
 
@@ -407,7 +409,8 @@ but the Mummy will appreciate the lack of humidity.
 And commit those changes:
 
 {% highlight console %}
-$ git commit -a -m "Improve English style by replacing 2 with two"
+$ git add mars.txt
+$ git commit -m "Improve English style by replacing 2 with two"
 {% endhighlight %}
 
 Now, you've thought about the "headings" branch and decide it's time to
@@ -466,7 +469,8 @@ but the Mummy will appreciate the lack of humidity.
 Commit the change:
 
 {% highlight console %}
-$ git commit -a -m "Change Dracula reference to the third person"
+$ git add mars.txt
+$ git commit -m "Change Dracula reference to the third person"
 {% endhighlight %}
 
 Now, a pedantic member of the team (let's call them "Juan Nunez-Iglesias")
@@ -495,7 +499,8 @@ but the Mummy will appreciate the lack of humidity.
 And commit our changes:
 
 {% highlight console %}
-$ git commit -a -m "Complete first sentence"
+$ git add mars.txt
+$ git commit -m "Complete first sentence"
 {% endhighlight %}
 
 Finally, we get back the master branch and try to merge each branch in
