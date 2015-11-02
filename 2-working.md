@@ -25,8 +25,8 @@ email, so that your changes are properly attributed when you commit them to a
 repo:
 
 {% highlight console %}
-$ git config --global user.name "Juan Nunez-Iglesias"
-$ git config --global user.email "juan.n@unimelb.edu.au"
+$ git config --global user.name "Your Name"
+$ git config --global user.email "your.name@your.institute.edu"
 {% endhighlight %}
 
 (The `--global` tag means that this configuration should be used for all your
