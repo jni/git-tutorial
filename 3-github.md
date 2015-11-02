@@ -109,7 +109,8 @@ the `--set-upstream` function, you tell git to create a branch with the same
 name that "tracks" the current branch. This makes future pushes easier.
 
 {% highlight console %}
-$ git commit -a -m "Add human concerns about oxygen"
+$ git add mars.txt
+$ git commit -m "Add human concerns about oxygen"
 $ git push origin --set-upstream humans
 {% endhighlight %}
 
@@ -145,8 +146,8 @@ title and message here is very important!
 > 
 > When in Rome, do as the Romans do. Look at their existing codebase
 > and try to follow their example. (This is not to say that you can't
-> improve on it; but make sure your documentation and testing *at
-> least* meets their standards.)
+> improve on it; but make sure your documentation and testing *at least*
+> least meets their standards.)
 
 
 
@@ -180,7 +181,8 @@ We can extract it from CO2, which is plentiful on Mars.
 Again, Bob commits and pushes his changes:
 
 {% highlight console %}
-$ git commit -a -m "Specify how to obtain oxygen on Mars"
+$ git add mars.txt
+$ git commit -m "Specify how to obtain oxygen on Mars"
 $ git push  # no need to specify repo or branch anymore, having `set-upstream`
 {% endhighlight %}
 
