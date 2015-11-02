@@ -10,7 +10,7 @@ To work with this tutorial, you're going to need a few things:
   [git-scm.com](http://git-scm.com). On Linux, you probably already have git,
   or you can install it with `sudo apt-get install git-all` or
   `sudo yum install git`.
-- **A graphical git client or browser**. This let you visualise your git
+- **A graphical git client or browser**. This lets you visualise your git
   history more easily, and understand the concepts behind git better. For a
   full list of clients, see [here](http://git-scm.com/downloads/guis). On Mac,
   I recommend GitX and GitHub for Mac (both).
