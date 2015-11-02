@@ -4,7 +4,16 @@ permalink: git-theory/
 title: Git theory
 ---
 
-How does a repository work?
+Git stores the complete history of your files for a project in a special
+directory (a.k.a. a folder) called a *repository*, or repo.
+This repo is usually in a hidden folder called `.git` sitting next to your
+files.
+
+Keeping an entire history sounds expensive, but it isn't, because git is smart
+and does not replicate all your files, and instead keeps only *changes* to your
+files.
+
+How does a repo work?
 
 (Don't stress this section too much: it will all become second nature after
 you've used git for a bit.)
@@ -100,7 +109,7 @@ access the repository without an internet connection and sometimes a VPN.
 In git, repositories can be replicated, either in full or in part, as many
 times as necessary. Git hashes enable this: since every version has a commit
 hash that is practically guaranteed to be unique, as well as one or more
-_parent_ commits that are also hashed, it is trivially easy to reason about
+_parent_ commits that are also hashed, it is easy to reason about
 duplicated versions of the history.
 
 In addition to enabling backups, this also helps with collaboration, but adds
