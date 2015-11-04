@@ -302,6 +302,6 @@ Finally, Bob will try to push back to his GitHub account but this will fail.
   off chance that there is a Nature paper buried in there.
 - Your own coding habits and practice will improve just by knowing that
   it's out there. (Shame is a powerful motivator! =P)
-- If someone *does* look at your code and find it useful, chances are
+- If someone *does* look at your code and finds it useful, chances are
   that you will have gained a new collaborator, not a competitor.
 - It is just good scientific practice!

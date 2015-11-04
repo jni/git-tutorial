@@ -40,6 +40,25 @@ There are (at least) three stages of git enlightenment:
 It took me a long time to pass all three, and I hope this tutorial will help
 someone get there faster.
 
+A final thing to keep in mind while you're learning: git is *hard*.
+It's difficult enough to keep all the branching histories straight, but
+worse, its user interface is notoriously inscrutable and seemingly random.
+I consider myself a git "power user", and I still often Google commands for
+it.
+I privately maintain a list of "git WTFs", commands that make no sense at all.
+I hope to one day turn these into a book.
+
+Now, after reading that, you might wonder, "why would anyone want to learn
+this?"
+The answer is that the *backbone* of git, how it maintains your data and
+communicates between different copies of your data, is extremely solid and
+well-thought-out.
+The UI needs work, yes, but that can always be improved.
+There are, in fact, many reasonable git "clients", which make the day-to-day of
+git nicer.
+This tutorial, however, is about the hard basics.
+Understand those, and all other clients will feel deliciously simple.
+
 # Tutorial timeline (approximate)
 
 0. Installing and setting up git, GitHub, and others (30min)
