@@ -31,6 +31,30 @@ To work with this tutorial, you're going to need a few things:
   [here](https://help.github.com/articles/generating-ssh-keys/), making sure
   that you are seeing the instructions for your OS (Mac, Windows, or Linux).
 
+  **For Windows users**: when typing a passphrase, it seems that the keyboard is not working. However, it is just a security feature to avoid showing it. Go ahead and type your passphrase, then repeat it when requested.
+
+  Moreover, if you get the error:
+
+  {% highlight console %}
+  $ ssh-add ~/.ssh/id_rsa
+  Could not open a connection to your authentication agent.
+  {% endhighlight %}
+
+  you will need to use this command to start the ssh-agent:
+
+  {% highlight console %}
+  eval `ssh-agent -s`
+  {% endhighlight %}
+
+  be careful to use the proper backtick symbol. Then type:
+
+  {% highlight console %}
+  ssh-add ~/.ssh/id_rsa
+  {% endhighlight %}
+
+  (change the filename from id_rsa according to the one you used). See [here](http://stackoverflow.com/a/17848593) for more info.
+
+
 
 ## Setup
 
