@@ -31,30 +31,41 @@ To work with this tutorial, you're going to need a few things:
   [here](https://help.github.com/articles/generating-ssh-keys/), making sure
   that you are seeing the instructions for your OS (Mac, Windows, or Linux).
 
-  **For Windows users**: when typing a passphrase, it seems that the keyboard is not working. However, it is just a security feature to avoid showing it. Go ahead and type your passphrase, then repeat it when requested.
+## Notes
 
-  Moreover, if you get the error:
+When typing a passphrase, it might seem that the keyboard isn't working.
+However, this is just a security feature (similar to the `*`s you might see
+when typing a password on the web). Just go ahead and type the passphrase,
+then repeat it as requested.
 
-  {% highlight console %}
-  $ ssh-add ~/.ssh/id_rsa
-  Could not open a connection to your authentication agent.
-  {% endhighlight %}
+**For Windows users**: Windows does not have an ssh agent running in the
+background by default. If you see the error:
 
-  you will need to use this command to start the ssh-agent:
+{% highlight console %}
+$ ssh-add ~/.ssh/id_rsa
+Could not open a connection to your authentication agent.
+{% endhighlight %}
 
-  {% highlight console %}
-  eval `ssh-agent -s`
-  {% endhighlight %}
+you will need to use this command to start the ssh-agent:
 
-  be careful to use the proper backtick symbol. Then type:
+{% highlight console %}
+eval `ssh-agent -s`
+{% endhighlight %}
 
-  {% highlight console %}
-  ssh-add ~/.ssh/id_rsa
-  {% endhighlight %}
+(Be careful to use the proper backtick symbol, usually just above the "Tab"
+key on most keyboards; NOT the single quote/apostrophe character.)
 
-  (change the filename from id_rsa according to the one you used). See [here](http://stackoverflow.com/a/17848593) for more info.
+Then type:
 
+{% highlight console %}
+ssh-add ~/.ssh/id_rsa
+{% endhighlight %}
 
+(You might need to change the filename from `id_rsa` to the whatever you used.)
+See [this StackOverflow answer](http://stackoverflow.com/a/17848593) for more
+info.
+
+You need to keep the window on which you launched the ssh-agent open.
 
 ## Setup
 
