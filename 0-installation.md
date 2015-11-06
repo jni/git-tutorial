@@ -49,7 +49,7 @@ Could not open a connection to your authentication agent.
 you will need to use this command to start the ssh-agent:
 
 {% highlight console %}
-eval `ssh-agent -s`
+$ eval `ssh-agent -s`
 {% endhighlight %}
 
 (Be careful to use the proper backtick symbol, usually just above the "Tab"
@@ -58,7 +58,7 @@ key on most keyboards; NOT the single quote/apostrophe character.)
 Then type:
 
 {% highlight console %}
-ssh-add ~/.ssh/id_rsa
+$ ssh-add ~/.ssh/id_rsa
 {% endhighlight %}
 
 (You might need to change the filename from `id_rsa` to the whatever you used.)
