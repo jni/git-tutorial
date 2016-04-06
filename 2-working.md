@@ -48,16 +48,22 @@ conveniences: addition of a README, a gitignore, and a license.
 
 > A quick note on licenses:
 > 
-> The two most popular free and open source (FOSS) licenses are the
-> GNU Public License (GPL) and the BSD 3-clause license. The main
-> difference between them is that GPL forces users of your code to
-> publish their own code under the GPL itself, while the BSD makes
-> no such prescriptions.
+> The three most popular free and open source (FOSS) licenses are the
+> GNU Public License (GPL), the MIT license, and the BSD 3-clause license.
+> The main difference between them is that the GPL requires published
+> derivative works to themselves be licensed under
+> GPL-compatible licenses, while MIT and BSD make no such prescriptions.
 > 
 > I'm a big proponent of BSD. Jake Vanderplas, Director of Research at
 > the University of Washington's eScience Institute, has a fantastic
 > [blog post](http://www.astrobetter.com/blog/2014/03/10/the-whys-and-hows-of-licensing-scientific-code/)
 > explaining why.
+>
+> Having said that, as Jake says, what's important is that you license
+> your software and use one of the above licenses. Which license you use is
+> a personal choice, not a technical one. A good rule of thumb is, when in
+> Rome, do as the Romans do: if writing scientific Python, use BSD. If
+> writing R packages, use GPL.
 
 Follow [GitHub's
 instructions](https://help.github.com/articles/creating-a-new-repository)
