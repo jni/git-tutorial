@@ -5,25 +5,6 @@ title: Home
 
 # <center> Open Source Science with Git and Github: a tutorial </center>
 
-There are (at least) three stages of git enlightenment:
-
-1. Maintain a linear history for a file or group of files.
-2. Use branches effectively to group related changes together, as well as
-   maintain parallel versions.
-3. Use branches and pull-requests to collaborate effectively.
-
-It took me a long time to pass all three, and I hope this tutorial will help
-someone get there faster.
-
-# Tutorial timeline (approximate)
-
-0. Installing and setting up git, GitHub, and others (30min)
-1. Git theory (30min)
-2. Working with git (1h)
-3. Working with GitHub (1h)
-4. Advanced topics discussion (15min)
-5. Putting it together: submit improvements to this workshop! (45min)
-
 # What is Git and why do you want it?
 
 Git is a _revision control management system_[^git][^gitbook]. It helps you
@@ -48,6 +29,44 @@ Notice:
 
 This is known as _revision hell_, and it happens when you don't use revision
 control, even if you are working alone. Systems such as git save you from this.
+
+There are (at least) three stages of git enlightenment:
+
+1. Maintain a linear history for a file or group of files.
+2. Use branches effectively to group related changes together, as well as
+   maintain parallel versions.
+3. Use branches and pull-requests to collaborate effectively.
+
+It took me a long time to pass all three, and I hope this tutorial will help
+someone get there faster.
+
+A final thing to keep in mind while you're learning: git is *hard*.
+It's difficult enough to keep all the branching histories straight, but
+worse, its user interface is notoriously inscrutable and seemingly random.
+I consider myself a git "power user", and I still often Google commands for
+it.
+I privately maintain a list of "git WTFs", commands that make no sense at all.
+I hope to one day turn these into a book.
+
+Now, after reading that, you might wonder, "why would anyone want to learn
+this?"
+The answer is that the *backbone* of git, how it maintains your data and
+communicates between different copies of your data, is extremely solid and
+well-thought-out.
+The UI needs work, yes, but that can always be improved.
+There are, in fact, many reasonable git "clients", which make the day-to-day of
+git nicer.
+This tutorial, however, is about the hard basics.
+Understand those, and all other clients will feel deliciously simple.
+
+# Tutorial timeline (approximate)
+
+0. Installing and setting up git, GitHub, and others (30min)
+1. Git theory (30min)
+2. Working with git (1h)
+3. Working with GitHub (1h)
+4. Advanced topics discussion (15min)
+5. Putting it together: submit improvements to this workshop! (45min)
 
 Click on the sections below to get started with git!
 

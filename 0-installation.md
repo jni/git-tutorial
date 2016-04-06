@@ -10,10 +10,12 @@ To work with this tutorial, you're going to need a few things:
   [git-scm.com](http://git-scm.com). On Linux, you probably already have git,
   or you can install it with `sudo apt-get install git-all` or
   `sudo yum install git`.
-- **A graphical git client or browser**. This let you visualise your git
+- **A graphical git client or browser**. This lets you visualise your git
   history more easily, and understand the concepts behind git better. For a
   full list of clients, see [here](http://git-scm.com/downloads/guis). On Mac,
-  I recommend GitX and GitHub for Mac (both).
+  I recommend GitX and GitHub for Mac (both). A friend really likes Git Tower.
+  Finally, the new kid on the block is [gitup](http://gitup.co), which looks
+  amazing.
 - **A text editor**. Try [Sublime Text](http://www.sublimetext.com)
   or [Atom](https://atom.io) (both of which are multiplatform). Configure them
   to be your default git editors by following the instructions on
@@ -29,16 +31,41 @@ To work with this tutorial, you're going to need a few things:
   [here](https://help.github.com/articles/generating-ssh-keys/), making sure
   that you are seeing the instructions for your OS (Mac, Windows, or Linux).
 
-Additionally, the tutorial is going to be led in Python. If you're familiar
-with a different programming language, feel free to convert what we write to
-that language! At the start of the tutorial, we'll try to pair up by
-programming language preference.
+## Notes
 
-For those that don't have a preference, you probably want to have Python
-installed. On Mac and Linux, everything should work out of the box, but for
-Windows, you'll want to download the
-[Anaconda Python distribution](http://continuum.io/downloads). (You probably
-want to download it no matter what your OS! It's awesome!)
+When typing a passphrase, it might seem that the keyboard isn't working.
+However, this is just a security feature (similar to the `*`s you might see
+when typing a password on the web). Just go ahead and type the passphrase,
+then repeat it as requested.
+
+**For Windows users**: Windows does not have an ssh agent running in the
+background by default. If you see the error:
+
+{% highlight console %}
+$ ssh-add ~/.ssh/id_rsa
+Could not open a connection to your authentication agent.
+{% endhighlight %}
+
+you will need to use this command to start the ssh-agent:
+
+{% highlight console %}
+$ eval `ssh-agent -s`
+{% endhighlight %}
+
+(Be careful to use the proper backtick symbol, usually just above the "Tab"
+key on most keyboards; NOT the single quote/apostrophe character.)
+
+Then type:
+
+{% highlight console %}
+$ ssh-add ~/.ssh/id_rsa
+{% endhighlight %}
+
+(You might need to change the filename from `id_rsa` to the whatever you used.)
+See [this StackOverflow answer](http://stackoverflow.com/a/17848593) for more
+info.
+
+You need to keep the window on which you launched the ssh-agent open.
 
 ## Setup
 
