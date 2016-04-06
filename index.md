@@ -16,7 +16,7 @@ Final.doc](http://www.phdcomics.com/comics/archive/phd101212s.gif)
 
 I certainly have:
 
-![Revision hell](/images/revhell.png)
+![Revision hell](/git-tutorial/images/revhell.png)
 
 Notice:
 
@@ -70,11 +70,11 @@ Understand those, and all other clients will feel deliciously simple.
 
 Click on the sections below to get started with git!
 
-- [Installation and setup](/installation/)
-- [Git theory](/git-theory/)
-- [Working with git](/working-with-git/)
-- [Working with GitHub](/working-with-github/)
-- [Advanced topics](/advanced-topics/)
+- [Installation and setup](/git-tutorial/installation/)
+- [Git theory](/git-tutorial/git-theory/)
+- [Working with git](/git-tutorial/working-with-git/)
+- [Working with GitHub](/git-tutorial/working-with-github/)
+- [Advanced topics](/git-tutorial/advanced-topics/)
 
 ## References
 
