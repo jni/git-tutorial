@@ -129,7 +129,7 @@ changes to the code and you would like her to incorporate them into
 her project. Notice that you did this *without needing any special
 access from Alice!* This is the magic of GitHub.
 
-![GitHub's impact on FOSS](/images/gh.png)
+![GitHub's impact on FOSS](/git-tutorial/images/gh.png)
 
 Click on the PR button and fill in the form. Filling in a useful
 title and message here is very important!
