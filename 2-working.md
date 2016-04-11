@@ -679,3 +679,18 @@ commit, and the merge will complete!
 $ git add strcalc.R
 $ git commit
 {% endhighlight %}
+
+## Challenge: Style guides
+
+Search the web for both Google's and Hadley Wickam's style guides for R
+code. It's a very good idea to make sure that your code matches these
+guides, because they are used by many people and so anyone you collaborate
+with will be able to more easily read your code, and vice-versa.
+
+We've messed up a couple of recommendations from the guides. What are they?
+Create a new branch, fix them, and then merge the changes back into your
+master branch.
+
+(Note: Google's guide recommends using CamelCase with a leading capital for
+function names, but this is quite uncommon. Follow Hadley's guide when the
+two are in conflict.)
