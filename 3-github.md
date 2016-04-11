@@ -76,13 +76,20 @@ For this exercise you will have to pair up with your neighbour, which
 we will name Alice. (And your name is Bob, in keeping with the computer
 science literature.)
 
-Delete your "planets" repository on GitHub (this is done under "Settings"
-in the right-hand menu). You've realised that Alice has her own and
-that you can both save effort by collaborating on this project. You, being
-human, want to make sure that concerns for human crew members are noted.
+Delete your "r-string-calc" repository on GitHub (this is done under "Settings"
+in the right-hand menu). You've realised that Alice has her own version and
+that you can both save effort by collaborating on this project.
+
+You've been wanting to do some arithmetic on some data, but the first
+number you need to add is often a decimal number. In those cases, the
+`compute` function falls short. (How?)
+
+You want to modify it so that the first number is allowed to be a decimal
+number.
 
 Navigate to Alice's repository on GitHub
-(https://github.com/[Alice's username]/planets), and click the "Fork" button.
+(https://github.com/[Alice's username]/r-string-calc), and click the "Fork"
+button.
 This will create a copy of Alice's repo on your GitHub account, which
 you can then clone on your machine as before. But note that you need to
 delete your existing repository! Instructions below (some of the directories
@@ -90,38 +97,25 @@ and obviously the "bob" username needs to be changed to yours!):
 
 {% highlight console %}
 $ pwd
-/Users/bob/projects/planets
+/Users/bob/projects/r-string-calc
 $ cd ..
-$ rm -rf planets
-$ git clone git@github.com:bob/planets.git
-$ cd planets
-$ git checkout -b humans
+$ rm -rf r-string-calc
+$ git clone git@github.com:bob/r-string-calc.git
+$ cd r-string-calc
+$ git checkout -b decimals
 {% endhighlight %}
 
-Edit the `mars.txt` file to look like so:
+Edit the `strcalc.R` file so that `num0` is converted with `as.numeric`
+instead of `as.integer`.
 
-~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
-Mars is cold and dry, but everything is Dracula's favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
-
-We will need to make our own oxygen.
-~~~
-
-Now commit those changes and push them to a new branch on GitHub. If you use
-the `--set-upstream` function, you tell git to create a branch with the same
+Now commit those changes and push them *to a new branch on GitHub*. If you use
+the `--set-upstream` flag, you tell git to create a branch with the same
 name that "tracks" the current branch. This makes future pushes easier.
 
 {% highlight console %}
-$ git add mars.txt
-$ git commit -m "Add human concerns about oxygen"
-$ git push origin --set-upstream humans
+$ git add strcalc.R
+$ git commit -m "Allow num0 to be any decimal number"
+$ git push origin --set-upstream decimals
 {% endhighlight %}
 
 Go to the GitHub page for the project. You should see a new button
@@ -138,6 +132,8 @@ The PR will tell Alice that you've made some
 changes to the code and you would like her to incorporate them into
 her project. Notice that you did this *without needing any special
 access from Alice!* This is the magic of GitHub.
+
+Check out the impact that GitHub has had on a few open source Python projects:
 
 ![GitHub's impact on FOSS](/git-tutorial/images/gh.png)
 
@@ -166,33 +162,17 @@ her project. Clicking on it, she will be taken to the web form for the
 PR, where she can examine the changes that Bob has made (the "Files changed"
 tab).
 
-Alice will note that this sentence would be made much more useful if it
-included some guidance about *how* to make oxygen on Mars. She comments on the
-PR page: "Thanks! Could you add a line about how this could be achieved?"
+Alice will note that this great change would be made much more useful if it
+also used `as.numeric` for `num1`! She comments on the
+PR page: "This is a great addition, thanks! Could you please do the same for
+num1?"
 
-After some web searching, Bob discovers that Mars has plenty of carbon dioxyde,
-so he suggests extracting the oxygen from that.
-
-~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
-Mars is cold and dry, but everything is Dracula's favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
-
-We will need to make our own oxygen.
-We can extract it from CO2, which is plentiful on Mars.
-~~~
-
-Again, Bob commits and pushes his changes:
+On his machine, Bob makes the requested change, commits, and pushes his changes:
 
 {% highlight console %}
-$ git add mars.txt
-$ git commit -m "Specify how to obtain oxygen on Mars"
+$ #  ... edit strcalc.R ...
+$ git add strcalc.R
+$ git commit -m "Use as.numeric for num1's conversion also"
 $ git push  # no need to specify repo or branch anymore, having `set-upstream`
 {% endhighlight %}
 
@@ -205,67 +185,38 @@ request" button and incorporate Bob's changes to her code!
 
 One last thing needs to happen to really synchronise everyone's histories.
 Although Alice has Bob's changes, *Bob doesn't have Alice's commit
-incorporating his changes.* If he continues to work on his `humans` branch,
+incorporating his changes.* If he continues to work on his `decimals` branch,
 their histories will diverge. And if he works on his `master` branch, his
 changes won't be there!
 
-The solution is for him to *pull* from *Alice's* repository. For this, he needs
-to add it to his list of remotes (remember remotes?):
+The solution is for him to *pull* the master branch *from Alice's repository*.
+For this, he needs to add it to his list of remotes (remember remotes?):
 
 {% highlight console %}
 $ git remote -v
-origin	git@github.com:bob/planets.git (fetch)
-origin	git@github.com:bob/planets.git (push)
-$ git remote add upstream git@github.com:alice/planets.git
+origin	git@github.com:bob/r-string-calc (fetch)
+origin	git@github.com:bob/r-string-calc (push)
+$ git remote add upstream git@github.com:alice/r-string-calc
 $ git remote -v
-origin	git@github.com:bob/planets.git (fetch)
-origin	git@github.com:bob/planets.git (push)
-upstream	git@github.com:alice/planets.git (fetch)
-upstream	git@github.com:alice/planets.git (push)
+origin	git@github.com:bob/r-string-calc (fetch)
+origin	git@github.com:bob/r-string-calc (push)
+upstream	git@github.com:alice/r-string-calc (fetch)
+upstream	git@github.com:alice/r-string-calc (push)
 $ git checkout master
 $ git pull upstream master  # get upstream's master branch, and merge
 {% endhighlight %}
 
 Bob can now inspect his history log and see that both his changes and Alice's
-merge are there:
+merge are there. Use GitX for this or the `lsd` alias we learned earlier, or
+a simple git-log will also do.
 
-{% highlight console %}
-$ git lsd
-*   3fb6c83 (HEAD, master) Merge pull request #1 from bob/humans
-|\  
-| * c00e290 (humans) Specify how to obtain oxygen on Mars
-| * 49ad7b0 Add human concerns about oxygen
-|/  
-*   1fb7977 Merge branch 'pedant'
-|\  
-| * 50726c3 (pedant) Complete first sentence
-* | 37d72a7 (third-person) Change Dracula reference to the third person
-|/  
-*   2905d8d Merge branch 'headings'
-|\  
-| * c932703 (headings) Add heading for human-specific concerns
-| * 14dde3e Add title and heading
-* | 730d526 Improve English style by replacing 2 with two
-|/  
-* 37aa3b5 Note Mummy's preference for Martian atmosphere
-* 7126926 Add concerns about effect of moons on Wolfman
-* 3e1d628 Start notes on Mars as a base
-* 2407f61 (origin/master, origin/HEAD) Initial commit
-{% endhighlight %}
-
-And all his branches that have been merged back can be safely deleted:
-
-{% highlight console %}
-$ git branch -d humans pedant third-person headings
-{% endhighlight %}
-
-## Bonus exercise 1
+## Bonus exercise 1: self-PRs and code review
 
 Do the reverse approach, which is a bit different. Alice has gained a
 collaborator in Bob. Even though she still maintains control of the project
 repository, she wants to enlist his help. She sprouts a branch, adds a line or
-two (at the risk of mixing metaphors, an example:
-Medusa might appreciate the lack of reflective surfaces), then
+two (for example, she might want to add a test function, `test.compute`, that
+runs `compute` for a few known values and makes sure the results match up), then
 *creates a PR against her own repository.* She then asks Bob to review her
 change by mentioning his username (e.g. `@bob`, as in Twitter) in a comment on
 the PR page. Only when Bob gives his ok (or perhaps he spots a typo) does she
@@ -276,14 +227,13 @@ control the repository, is universal among programming teams, because it
 dramatically improves the quality of the code. Two pairs of eyes are more than
 twice as effective as one pair.
 
-## Bonus exercise 2
+## Bonus exercise 2: rebasing
 
-Bob pulls Alice's latest changes. He then works on a new section about
-*agriculture on Mars*. (e.g. Dracula vetoes any wishes to bring garlic, while
-Wolfman insists on taking a flock of sheep.) He submits his pull request.
+Bob thinks testing is a swell idea, and adds a test function at the bottom in
+a branch called `test-2`, and makes a PR.
 
-Meanwhile, Alice makes her own
-changes, adding a (blank) section on rocket fuel requirements.
+Meanwhile, Alice herself has also been busy and adds a third test function at
+the bottom of the same file, before merging Bob's PR.
 
 Bob's pull request now shows a greyed out "Merge" button, because there are
 merge conflicts! Unlike before, you don't have access to the history on GitHub,
@@ -295,7 +245,7 @@ branch on top of the latest `master` from Alice's repository.
 {% highlight console %}
 $ git checkout master
 $ git pull upstream master
-$ git rebase master agriculture
+$ git rebase master test-2
 {% endhighlight %}
 
 During the rebase, Bob will have merge conflicts. He needs to fix these as
