@@ -265,3 +265,5 @@ Finally, Bob will try to push back to his GitHub account but this will fail.
 - If someone *does* look at your code and finds it useful, chances are
   that you will have gained a new collaborator, not a competitor.
 - It is just good scientific practice!
+- See my blog post [Why scientists should code in the open](https://ilovesymposia.com/2015/12/26/why-scientists-should-code-in-the-open/)
+  and Jake Vanderplas's presentation [In defense of extreme openness](https://speakerdeck.com/jakevdp/in-defense-of-extreme-openness).
