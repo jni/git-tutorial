@@ -120,31 +120,32 @@ Your branch is up-to-date with 'origin/master'.
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-        mars.txt
+    strcalc.R
 
-nothing added to commit but untracked files present (use "git add" to track)
+    nothing added to commit but untracked files present (use "git add" to
+    track)
 {% endhighlight %}
 
 Tell git to add the file to its tracking system:
 
 {% highlight console %}
-$ git add mars.txt
+$ git add strcalc.R
 $ git status
 On branch master
 Your branch is up-to-date with 'origin/master'.
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-        new file:   mars.txt
+    new file:   strcalc.R
 {% endhighlight %}
 
 Then, *commit* the changes to the history:
 
 {% highlight console %}
-$ git commit --message "Start notes on Mars as a base"
-[master 3e1d628] Start notes on Mars as a base
- 1 file changed, 1 insertion(+)
- create mode 100644 mars.txt
+$ git commit --message "Initial work on an R string calculator"
+[master c85a965] Initial work on an R string calculator
+ 1 file changed, 12 insertions(+)
+ create mode 100644 strcalc.R
 {% endhighlight %}
 
 The quoted string is called a *commit message*. This should summarise the
@@ -178,11 +179,26 @@ followed in the community:
 
 ### ... back to the exercise
 
-Add another line, to the file, so that it reads as follows:
+We shouldn't return 0 on error, because it can be confused with a perfectly
+valid result. Instead, R provides a handy value for missing or invalid data:
+`NA`.
 
-~~~
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman.
+Edit your file so that, if the operator is not recognised, it returns `NA`
+instead of 0.
+
+~~~R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  if (operator == '+') {
+    return(num0 + num1)
+  } else {
+    print('unknown operator!')
+    return(NA)
+  }
+}
 ~~~
 
 As before, we can check the status:
@@ -196,13 +212,13 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-    modified:   mars.txt
+	modified:   strcalc.R
 
 no changes added to commit (use "git add" and/or "git commit -a")
 {% endhighlight %}
 
 This time, the output is a bit different: rather than showing you an
-"Untracked file", your changes to `mars.txt` are now listed as "not staged
+"Untracked file", your changes to `strcalc.R` are now listed as "not staged
 for commit". What does this mean?
 
 If you think of git as taking snapshots of changes over the life of a
@@ -225,47 +241,62 @@ to stage things manually, or you might find yourself searching for
 
 Ok let's just commit everything now. =P
 
-{% highlight console %}
-$ git commit --all --message "Add concerns about effect of moons on Wolfman"
-{% endhighlight %}
+BUT FIRST! Let's actually check that "everything" is what we want. In
+addition to the one-line, "files changed" summary that we've seen, we can
+ask git for a line-by-line summary of changes:
 
-Finally, let's add a line about the Mummy's preferences:
-
-~~~
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-~~~
-
-(Note the comma at the end of the second line.)
-
-In addition to producing the `git status` one-line summary that we've
-seen before, git can produce a line-by-line description of everything
-that's changed since our last commit:
-
-{% highlight console %}
+```console
 $ git diff
-diff --git a/mars.txt b/mars.txt
-index 30c4e2f..86cd5c2 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favourite colour.
--The 2 moons may be a problem for Wolfman.
-+The 2 moons may be a problem for Wolfman,
-+but the Mummy will appreciate the lack of humidity.
+diff --git a/strcalc.R b/strcalc.R
+index bf38946..1a0d609 100644
+--- a/strcalc.R
++++ b/strcalc.R
+@@ -7,6 +7,6 @@ compute = function(input_string) {
+     return(num0 + num1)
+   } else {
+     print('unknown operator!')
+-    return(0)
++    return(NA)
+   }
+ }
+```
+
+You can see that changes to a line are encoded in git as deletion of
+that line and addition of the modified line. Git works on a line by line
+basis, which is why it's perfect for code and plain text files, but not
+so great for big binary files such as images.
+
+At any rate, the list of all the changes is indeed what we want to commit,
+so we can use `--all`:
+
+{% highlight console %}
+$ git commit --all --message "Return NA, not 0, on invalid input"
 {% endhighlight %}
 
-That's a machine-readable "diff format" that can be used by git and other
-software to reproduce the changes. Notice that a substitution (changing a
-full-stop into a comma) is encoded as a line deletion and addition, and the
-new line about the Mummy is another addition.
+Finally, let's add support for subtraction:
+
+~~~R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  if (operator == '+') {
+    return(num0 + num1)
+  } else if (operator == '-') {
+    return(num0 - num1)
+  } else {
+    print('unknown operator!')
+    return(NA)
+  }
+}
+~~~
 
 Let's commit the changes:
 
 {% highlight console %}
-$ git add mars.txt
-$ git commit -m "Note Mummy's preference for Martian atmosphere"
+$ git add strcalc.R
+$ git commit -m "Add support for subtraction"
 {% endhighlight %}
 
 (`-m` is a shortcut for `--message`.)
@@ -274,27 +305,27 @@ You now have a *history* that you can look at and interact with:
 
 {% highlight console %}
 $ git log
-commit 37aa3b547fde90c36af10c45b07ca74c6936750d
+commit dbf8ab9aa4ed7e62e856c8c0620d2e2406baec01
 Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
-Date:   Tue May 26 15:04:59 2015 +1000
+Date:   Mon Apr 11 21:28:47 2016 +1000
 
-    Note Mummy's preference for Martian atmosphere
+    Add support for subtraction
 
-commit 71269262f49859b9b53b2e3ccbeec084fcae624b
+commit c0a11b0e00c591f51c6be601d25bbe8cdd6277ac
 Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
-Date:   Tue May 26 14:49:15 2015 +1000
+Date:   Mon Apr 11 21:17:47 2016 +1000
 
-    Add concerns about effect of moons on Wolfman
+    Return NA, not 0, on invalid input
 
-commit 3e1d628655c096b98d0fe7a2994350c014196714
+commit c85a9652b60583e43e189f5c0acc4759453f0569
 Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
-Date:   Tue May 26 12:46:17 2015 +1000
+Date:   Mon Apr 11 21:10:12 2016 +1000
 
-    Start notes on Mars as a base
+    Initial work on an R string calculator
 
-commit 2407f61e7bddda4e59118f2dfe78317a1d5a199c
+commit 8ab045720aed3f9478d6a580e5d9ba99071789f2
 Author: Juan Nunez-Iglesias <jni.soma@gmail.com>
-Date:   Tue May 26 12:23:56 2015 +1000
+Date:   Mon Apr 11 12:19:18 2016 +1000
 
     Initial commit
 {% endhighlight %}
@@ -303,8 +334,8 @@ You can *check out* earlier versions of your code using the hash of
 a particular snapshot, like so:
 
 {% highlight console %}
-$ git checkout 71269262f49859b9b53b2e3ccbeec084fcae624b
-Note: checking out '71269262f49859b9b53b2e3ccbeec084fcae624b'.
+$ git checkout c85a9652b60583e43e189f5c0acc4759453f0569
+Note: checking out 'c85a9652b60583e43e189f5c0acc4759453f0569'.
 
 You are in 'detached HEAD' state. You can look around, make experimental
 changes and commit them, and you can discard any commits you make in this
@@ -313,37 +344,52 @@ state without impacting any branches by performing another checkout.
 If you want to create a new branch to retain commits you create, you may
 do so (now or later) by using -b with the checkout command again. Example:
 
-  git checkout -b new_branch_name
+  git checkout -b <new-branch-name>
 
-HEAD is now at 7126926... Add concerns about effect of moons on Wolfman
+HEAD is now at c85a965... Initial work on an R string calculator
 {% endhighlight %}
 
 You can verify that the file in your directory is now the older
 version:
 
 {% highlight console %}
-$ cat mars.txt
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman.
+$ cat strcalc.R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  if (operator == '+') {
+    return(num0 + num1)
+  } else {
+    print('unknown operator!')
+    return(0)
+  }
+}
 {% endhighlight %}
 
 > Note: you can use just the first few digits of the hash when checking
 > out a specific revision:
 > 
 > {% highlight console %}
-> $ git checkout 7126
-> HEAD is now at 7126926... Add concerns about effect of moons on Wolfman
+> $ git checkout c0a11
+> Previous HEAD position was c85a965... Initial work on an R string calculator
+> HEAD is now at c0a11b0... Return NA, not 0, on invalid input
 > {% endhighlight %}
 
 Thankfully, it's easy to go back to the latest version:
 
 {% highlight console %}
 $ git checkout master
+Previous HEAD position was c0a11b0... Return NA, not 0, on invalid input
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 3 commits.
+  (use "git push" to publish your local commits)
 {% endhighlight %}
 
 ## Exercise 2: branches
 
-Now we will undertake a major change to the structure of the document.
+Now we will undertake a major change to the structure of the function.
 Because it's such a big
 change, you want to work in a different _branch_ from "master", so that
 you can keep using that one while fixing up the new stuff. In practice,
@@ -351,11 +397,11 @@ almost _every_ change is significant enough to warrant a new branch,
 because "sprouting" one is cheap and easy.
 
 {% highlight console %}
-$ git checkout -b headings  # make branch to add headings
+$ git checkout -b use-switch  # make branch to use switch statement
 {% endhighlight %}
 
 You should read that as: check out the current branch into a new branch
-called `headings`. This is a good opportunity to learn about aliases,
+called `use-switch`. This is a good opportunity to learn about aliases,
 which are short names for commands that make them more memorable:
 
 {% highlight console %}
@@ -365,7 +411,7 @@ $ git config --global alias.sprout 'checkout -b'
 You can then replace the previous command with:
 
 {% highlight console %}
-$ git sprout headings
+$ git sprout use-switch
 {% endhighlight %}
 
 Feel free to get as creative as you want with your alias names! They are
@@ -373,167 +419,194 @@ essential to making a more intuitive git interface that works for you. (But
 do keep in mind that they will not be there when you use a different
 computer!)
 
-Now let's change the style of the text to be a bit less robotic:
+Now let's replace the longish list of if / else-if with a switch statement:
 
+~~~R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  result = switch(operator,
+                  '+' = num0 + num1,
+                  '-' = num0 - num1)
+  return(result)
+}
 ~~~
-# Mars
 
-## Properties pertaining to monster habitability
-
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-~~~
+Note that we've removed the informative error message when an invalid
+operator was passed, but don't worry, we'll get to it!
 
 Commit that change:
 
 {% highlight console %}
-$ git add mars.txt
-$ git commit -m "Add title and heading"
+$ git add strcalc.R
+$ git commit -m "Use fancy-shmancy switch function"
 {% endhighlight %}
 
-... and add a heading for human-focused concerns:
+... Oops! Your supervisor wants a working version of the program *now*,
+and she has no patience for programs that have no error messages! Or
+functions without documentation! Let's go back to our working version:
 
-~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
-~~~
-
-Now commit, return to the master branch, and make some unrelated changes:
-
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Add heading for human-specific concerns"
+```console
 $ git checkout master
-{% endhighlight %}
+```
 
-Replace the number "2" with the word "two":
+And edit the file to add an informative comment under the function
+definition:
 
-~~~
-Cold and dry, but everything is my favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-~~~
+```R
+compute = function(input_string) {
+  # Perform simple arithmetic encoded in input string
+  # e.g. '1 + 2' -> 3, or '1 - 2' -> -1
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  if (operator == '+') {
+    return(num0 + num1)
+  } else if (operator == '-') {
+    return(num0 - num1)
+  } else {
+    print('unknown operator!')
+    return(NA)
+  }
+}
+```
 
-And commit those changes:
+We can commit those changes:
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Improve English style by replacing 2 with two"
-{% endhighlight %}
+```console
+$ git commit -a -m "Add function documentation"
+[master ef26741] Add function documentation
+ 1 file changed, 2 insertions(+)
+```
 
-Now, you've thought about the "headings" branch and decide it's time to
-merge those changes back into your "main" history. `git merge` intelligently
-merges two history branches:
+Whew! Now that we've put out that fire, we can go back to our much more
+beautiful switch version:
 
-{% highlight console %}
-$ git merge headings  # merge branch 'headings' into current branch ('master')
-{% endhighlight %}
+```console
+$ git checkout use-switch
+```
 
-Git automatically generates a log message and produces the merged file:
+Now, `switch` lets us specify a default value at the very end, which is
+equivalent to the `else` that we had for unknown operators in the original
+function. So:
 
-~~~
-# Mars
+```R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  result = switch(operator,
+                  '+' = num0 + num1,
+                  '-' = num0 - num1,
+                  NA)
+  if (is.na(result)) {
+    print('unknown operator!')
+  }
+  return(result)
+}
+```
 
-## Properties pertaining to monster habitability
+And we commit it:
 
-Cold and dry, but everything is my favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
+```console
+$ git commit -a -m "Add NA processing for switch statement"
+[use-switch 7a1e58b] Add NA processing for switch statement
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+```
 
-## Properties pertaining to human habitability
-~~~
+Now you decide that your `use-switch` branch is ready to become the main
+branch of your program. It's great because adding new operators will be
+super-easy!
 
-Easy!
+`git merge` can often automatically reconcile changes in two branched
+histories:
+
+```console
+$ git checkout master
+Switched to branch 'master'
+Your branch is ahead of 'origin/master' by 4 commits.
+  (use "git push" to publish your local commits)
+$ git merge use-switch
+Auto-merging strcalc.R
+Merge made by the 'recursive' strategy.
+ strcalc.R | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+```
+
+Git has automatically done the work of resolving the different changes!
+
+```
+compute = function(input_string) {
+  # Perform simple arithmetic encoded in input string
+  # e.g. '1 + 2' -> 3, or '1 - 2' -> -1
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  result = switch(operator,
+                  '+' = num0 + num1,
+                  '-' = num0 - num1,
+                  NA)
+  if (is.na(result)) {
+    print('unknown operator!')
+  }
+  return(result)
+}
+```
+
 
 ## Exercise 3: merge conflicts
 
-Sometimes, changes in a branch and changes in the master branch are too
-difficult for git to merge automatically, and `git merge` will result in a
-*merge conflict*. In this exercise, you will see how to deal with those.
+Sometimes, it's not clear *how* two branching changes should be merged, for
+example if the same line is changed in both histories. Which change should
+take precedence? Git does the right thing and defers the decision to you.
+Let's see how it does this.
 
-Dracula has been asked to write in the third person because the document
-must make sense independently of knowing the author. So he needs to make a
-branch to make this change:
+Create a branch to add the multiplication operator:
 
-{% highlight console %}
-$ git checkout -b third-person
-{% endhighlight %}
+```console
+$ git checkout master -b add-multiplication
+```
 
-(Use your `sprout` alias if you made one! I leave the "canonical form" here
-for those that haven't, or that mysteriously skipped the alias section.)
+Thanks to our work with `switch`, it's as simple as adding the following
+line after the subtraction operator:
 
-~~~
-# Mars
+```R
+                  '*' = num0 * num1,
+```
 
-## Properties pertaining to monster habitability
+Commit that change:
 
-Cold and dry, but everything is Dracula's favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
+```console
+$ git commit -a -m "Add support for multiplication operator"
+```
 
-## Properties pertaining to human habitability
-~~~
+Now, repeat the same procedure, including the new branch, for division:
 
-Commit the change:
+```console
+$ git checkout master -b add-division
+# ... make changes to R file ...
+$ git commit -a -m "Add support for division operator"
+```
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Change Dracula reference to the third person"
-{% endhighlight %}
-
-Now, a pedantic member of the team (let's call them "Juan Nunez-Iglesias")
-has requested that only valid, complete English sentences should appear in
-the document text. So we make another branch for that change.
+Finally, bring those changes into the master branch:
 
 {% highlight console %}
 $ git checkout master
-$ git checkout -b pedant
-{% endhighlight %}
-
-And edit the file as follows:
-
-~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
-Mars is cold and dry, but everything is my favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
-~~~
-
-And commit our changes:
-
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Complete first sentence"
-{% endhighlight %}
-
-Finally, we get back the master branch and try to merge each branch in
-sequence:
-
-{% highlight console %}
-$ git checkout master
-$ git merge third-person
-$ git merge pedant
+$ git merge add-multiplication
+$ git merge add-division
 {% endhighlight %}
 
 At this point git will, to use a technical term, *chuck a hissy fit*, and
 refuse to perform the merge:
 
 {% highlight console %}
-Auto-merging mars.txt
-CONFLICT (content): Merge conflict in mars.txt
+Auto-merging strcalc.R
+CONFLICT (content): Merge conflict in strcalc.R
 Automatic merge failed; fix conflicts and then commit the result.
 {% endhighlight %}
 
@@ -542,48 +615,67 @@ changes. Git places markers on the file where it has found conflicts,
 so you can quickly identify those locations and decide on a fix:
 
 ~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
+compute = function(input_string) {
+  # Perform simple arithmetic encoded in input string
+  # e.g. '1 + 2' -> 3, or '1 - 2' -> -1
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  result = switch(operator,
+                  '+' = num0 + num1,
+                  '-' = num0 - num1,
 <<<<<<< HEAD
-Cold and dry, but everything is Dracula's favourite colour.
+                  '*' = num0 * num1,
 =======
-Mars is cold and dry, but everything is my favourite colour.
->>>>>>> pedant
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
+                  '/' = num0 / num1,
+>>>>>>> add-division
+                  NA)
+  if (is.na(result)) {
+    print('unknown operator!')
+  }
+  return(result)
+}
 ~~~
 
 Git is saying that in the current branch ("HEAD"), the file at that
-position contains the single line, "Cold and dry, but everything is
-Dracula's favourite colour.", while the `pedant` branch, which we
-are trying to merge, contains the line, "Mars is cold and dry, but
-everything is my favourite colour."
+position contains the single line, `'*' = num0 * num1,`, while the
+`add-division` branch, which we are trying to merge, contains the line,
+`'/' = num0 / num1`, *at the very same spot*.
 
 You fix merge conflicts by navigating to the `<<<<<<<` markers, comparing
 the two conflicting versions, and leaving the file as you want it to be
 committed: removing the markers, and combining the changes in a way
 that makes sense, and that a system like git can't figure out by itself.
 
-~~~
-# Mars
+In this case, we simply remove all the markers, and leave the two lines
+one after the other inside the file.
 
-## Properties pertaining to monster habitability
-
-Mars is cold and dry, but everything is Dracula's favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
+~~~R
+compute = function(input_string) {
+  # Perform simple arithmetic encoded in input string
+  # e.g. '1 + 2' -> 3, or '1 - 2' -> -1
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  result = switch(operator,
+                  '+' = num0 + num1,
+                  '-' = num0 - num1,
+                  '*' = num0 * num1,
+                  '/' = num0 / num1,
+                  NA)
+  if (is.na(result)) {
+    print('unknown operator!')
+  }
+  return(result)
+}
 ~~~
 
 Finally, tell git you've fixed the problem by `git add`ing the file,
 commit, and the merge will complete!
 
 {% highlight console %}
-$ git add mars.txt
+$ git add strcalc.R
 $ git commit
 {% endhighlight %}
