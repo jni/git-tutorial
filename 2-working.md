@@ -67,17 +67,16 @@ conveniences: addition of a README, a gitignore, and a license.
 
 Follow [GitHub's
 instructions](https://help.github.com/articles/creating-a-new-repository)
-to create a new repository called "planets", with the description,
-"Notes on suitability of various planets for a crewed mission."
+to create a new repository called "r-string-calc", with the description,
+"A function to do simple arithmetic from strings."
 
 Once created, copy the URL from the box in the bottom right, and open
 a terminal window to *clone* the project from GitHub to your local
 machine.
-(Note: "jni" should be replaced by your own username.)
 
 {% highlight console %}
-$ git clone git@github.com:jni/planets.git
-$ cd planets
+$ git clone git@github.com:<username>/r-string-calc.git
+$ cd r-string-calc
 {% endhighlight %}
 
 You can type `git status` to see that there is a git-tracked project there,
@@ -87,16 +86,27 @@ but nothing to add to the history:
 $ git status
 {% endhighlight %}
 
-Now you can start working on the project. We are going to add notes about
-Mars.
+Now you can start working on the project. We are going to create a function
+that takes in strings like '2 + 34' and produce the result, 36.
 
 In your editor, type:
 
-~~~
-Cold and dry, but everything is my favourite colour.
+~~~R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  if (operator == '+') {
+    return(num0 + num1)
+  } else {
+    print('unknown operator!')
+    return(0)
+  }
+}
 ~~~
 
-And save it to a file called `mars.txt` in the `planets` directory.
+And save it to a file called `strcalc.R` in the `r-string-calc` directory.
 
 Now we can see that git knows about the file, but it doesn't know whether it
 needs to worry about it. That's why it's listed under "Untracked files".
