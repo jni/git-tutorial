@@ -40,18 +40,28 @@ flag:
 
 {% highlight console %}
 $ git remote -v
-origin	git@github.com:jni/planets.git (fetch)
-origin	git@github.com:jni/planets.git (push)
+origin	git@github.com:jni/r-string-calc (fetch)
+origin	git@github.com:jni/r-string-calc (push)
 {% endhighlight %}
 
 That tells both the name of the remote, *and its location*. "origin" is
 the default name for the remote from which you cloned the current
 repository.
 
+Think of the output like an *address book* for the repo: the names on the
+left, and the addresses on the right.
+
 Now, push your local changes back to the origin:
 
 {% highlight console %}
 $ git push origin master:master
+Counting objects: 36, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (36/36), done.
+Writing objects: 100% (36/36), 3.33 KiB | 0 bytes/s, done.
+Total 36 (delta 25), reused 0 (delta 0)
+To git@github.com:jni/r-string-calc
+   8ab0457..8de6fb7  master -> master
 {% endhighlight %}
 
 Read the above as "push to "origin" my branch "master" onto its branch
