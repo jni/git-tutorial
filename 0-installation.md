@@ -13,9 +13,9 @@ To work with this tutorial, you're going to need a few things:
 - **A graphical git client or browser**. This lets you visualise your git
   history more easily, and understand the concepts behind git better. For a
   full list of clients, see [here](http://git-scm.com/downloads/guis). On Mac,
-  I recommend GitX and GitHub for Mac (both). A friend really likes Git Tower.
-  Finally, the new kid on the block is [gitup](http://gitup.co), which looks
-  amazing.
+  I recommend [Git Tower](https://www.git-tower.com), though it's not free. The
+  cross-platform [SourceTree](https://www.sourcetreeapp.com/) is free and
+  available on Windows and Mac. On Linux, try gitg or gitk.
 - **A text editor**. Try [Sublime Text](http://www.sublimetext.com)
   or [Atom](https://atom.io) (both of which are multiplatform). Configure them
   to be your default git editors by following the instructions on
