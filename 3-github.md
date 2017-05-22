@@ -29,20 +29,20 @@ on your department's computing servers. Therefore, you have to deal
 with "remotes", which are your local git's address book of other copies
 of the history. Check it out:
 
-{% highlight console %}
+```console
 $ git remote
 origin
-{% endhighlight %}
+```
 
 Git is saying that it knows about a single remote repository, called
 origin. To see what it knows *about* this remote, use the `-v` (verbose)
 flag:
 
-{% highlight console %}
+```console
 $ git remote -v
 origin	git@github.com:jni/r-string-calc (fetch)
 origin	git@github.com:jni/r-string-calc (push)
-{% endhighlight %}
+```
 
 That tells both the name of the remote, *and its location*. "origin" is
 the default name for the remote from which you cloned the current
@@ -53,7 +53,7 @@ left, and the addresses on the right.
 
 Now, push your local changes back to the origin:
 
-{% highlight console %}
+```console
 $ git push origin master:master
 Counting objects: 36, done.
 Delta compression using up to 4 threads.
@@ -62,7 +62,7 @@ Writing objects: 100% (36/36), 3.33 KiB | 0 bytes/s, done.
 Total 36 (delta 25), reused 0 (delta 0)
 To git@github.com:jni/r-string-calc
    8ab0457..8de6fb7  master -> master
-{% endhighlight %}
+```
 
 Read the above as "push to "origin" my branch "master" onto its branch
 "master".
@@ -95,7 +95,7 @@ you can then clone on your machine as before. But note that you need to
 delete your existing repository! Instructions below (some of the directories
 and obviously the "bob" username needs to be changed to yours!):
 
-{% highlight console %}
+```console
 $ pwd
 /Users/bob/projects/r-string-calc
 $ cd ..
@@ -103,7 +103,7 @@ $ rm -rf r-string-calc
 $ git clone git@github.com:bob/r-string-calc.git
 $ cd r-string-calc
 $ git checkout -b decimals
-{% endhighlight %}
+```
 
 Edit the `strcalc.R` file so that `num0` is converted with `as.numeric`
 instead of `as.integer`.
@@ -112,11 +112,11 @@ Now commit those changes and push them *to a new branch on GitHub*. If you use
 the `--set-upstream` flag, you tell git to create a branch with the same
 name that "tracks" the current branch. This makes future pushes easier.
 
-{% highlight console %}
+```console
 $ git add strcalc.R
 $ git commit -m "Allow num0 to be any decimal number"
 $ git push origin --set-upstream decimals
-{% endhighlight %}
+```
 
 Go to the GitHub page for the project. You should see a new button
 showing that you've recently updated a branch and prompting you to
@@ -169,12 +169,12 @@ num1?"
 
 On his machine, Bob makes the requested change, commits, and pushes his changes:
 
-{% highlight console %}
+```console
 $ #  ... edit strcalc.R ...
 $ git add strcalc.R
 $ git commit -m "Use as.numeric for num1's conversion also"
 $ git push  # no need to specify repo or branch anymore, having `set-upstream`
-{% endhighlight %}
+```
 
 If both Bob and Alice go back to the PR page, they will see that the PR has
 been automagically updated with Bob's new changes! (Though they may need to
@@ -192,7 +192,7 @@ changes won't be there!
 The solution is for him to *pull* the master branch *from Alice's repository*.
 For this, he needs to add it to his list of remotes (remember remotes?):
 
-{% highlight console %}
+```console
 $ git remote -v
 origin	git@github.com:bob/r-string-calc (fetch)
 origin	git@github.com:bob/r-string-calc (push)
@@ -204,7 +204,7 @@ upstream	git@github.com:alice/r-string-calc (fetch)
 upstream	git@github.com:alice/r-string-calc (push)
 $ git checkout master
 $ git pull upstream master  # get upstream's master branch, and merge
-{% endhighlight %}
+```
 
 Bob can now inspect his history log and see that both his changes and Alice's
 merge are there. Use GitX for this or the `lsd` alias we learned earlier, or
@@ -242,11 +242,11 @@ so you can't just proceed with the merge and fix the merge conflicts.
 The common solution is to *rebase*, that is, to replay the changes on Bob's
 branch on top of the latest `master` from Alice's repository.
 
-{% highlight console %}
+```console
 $ git checkout master
 $ git pull upstream master
 $ git rebase master test-2
-{% endhighlight %}
+```
 
 During the rebase, Bob will have merge conflicts. He needs to fix these as
 before, `git add` the file, and then `git rebase --continue` to complete the
