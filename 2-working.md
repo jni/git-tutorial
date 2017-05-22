@@ -24,10 +24,10 @@ The first thing you should do after installing git is setting your name and
 email, so that your changes are properly attributed when you commit them to a
 repo:
 
-{% highlight console %}
+```console
 $ git config --global user.name "Your Name"
 $ git config --global user.email "your.name@your.institute.edu"
-{% endhighlight %}
+```
 
 (The `--global` tag means that this configuration should be used for all your
 git projects. You can change the setting for specific project, e.g. if you want
@@ -74,17 +74,17 @@ Once created, copy the URL from the box in the bottom right, and open
 a terminal window to *clone* the project from GitHub to your local
 machine.
 
-{% highlight console %}
+```console
 $ git clone git@github.com:<username>/r-string-calc.git
 $ cd r-string-calc
-{% endhighlight %}
+```
 
 You can type `git status` to see that there is a git-tracked project there,
 but nothing to add to the history:
 
-{% highlight console %}
+```console
 $ git status
-{% endhighlight %}
+```
 
 Now you can start working on the project. We are going to create a function
 that takes in strings like '2 + 34' and produce the result, 36.
@@ -113,7 +113,7 @@ needs to worry about it. That's why it's listed under "Untracked files".
 This is handy for playing around with external files (e.g. dummy data files)
 that you don't necessarily want to keep for posterity.
 
-{% highlight console %}
+```console
 $ git status
 On branch master
 Your branch is up-to-date with 'origin/master'.
@@ -124,11 +124,11 @@ Untracked files:
 
     nothing added to commit but untracked files present (use "git add" to
     track)
-{% endhighlight %}
+```
 
 Tell git to add the file to its tracking system:
 
-{% highlight console %}
+```console
 $ git add strcalc.R
 $ git status
 On branch master
@@ -137,16 +137,16 @@ Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
     new file:   strcalc.R
-{% endhighlight %}
+```
 
 Then, *commit* the changes to the history:
 
-{% highlight console %}
+```console
 $ git commit --message "Initial work on an R string calculator"
 [master c85a965] Initial work on an R string calculator
  1 file changed, 12 insertions(+)
  create mode 100644 strcalc.R
-{% endhighlight %}
+```
 
 The quoted string is called a *commit message*. This should summarise the
 changes you made and *why* you made them. The message should be readable
@@ -203,7 +203,7 @@ compute = function(input_string) {
 
 As before, we can check the status:
 
-{% highlight console %}
+```console
 $ git status
 On branch master
 Your branch is ahead of 'origin/master' by 1 commit.
@@ -215,7 +215,7 @@ Changes not staged for commit:
 	modified:   strcalc.R
 
 no changes added to commit (use "git add" and/or "git commit -a")
-{% endhighlight %}
+```
 
 This time, the output is a bit different: rather than showing you an
 "Untracked file", your changes to `strcalc.R` are now listed as "not staged
@@ -269,9 +269,9 @@ so great for big binary files such as images.
 At any rate, the list of all the changes is indeed what we want to commit,
 so we can use `--all`:
 
-{% highlight console %}
+```console
 $ git commit --all --message "Return NA, not 0, on invalid input"
-{% endhighlight %}
+```
 
 Finally, let's add support for subtraction:
 
@@ -294,16 +294,16 @@ compute = function(input_string) {
 
 Let's commit the changes:
 
-{% highlight console %}
+```console
 $ git add strcalc.R
 $ git commit -m "Add support for subtraction"
-{% endhighlight %}
+```
 
 (`-m` is a shortcut for `--message`.)
 
 You now have a *history* that you can look at and interact with:
 
-{% highlight console %}
+```console
 $ git log
 commit dbf8ab9aa4ed7e62e856c8c0620d2e2406baec01
 Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
@@ -328,12 +328,12 @@ Author: Juan Nunez-Iglesias <jni.soma@gmail.com>
 Date:   Mon Apr 11 12:19:18 2016 +1000
 
     Initial commit
-{% endhighlight %}
+```
 
 You can *check out* earlier versions of your code using the hash of
 a particular snapshot, like so:
 
-{% highlight console %}
+```console
 $ git checkout c85a9652b60583e43e189f5c0acc4759453f0569
 Note: checking out 'c85a9652b60583e43e189f5c0acc4759453f0569'.
 
@@ -347,12 +347,12 @@ do so (now or later) by using -b with the checkout command again. Example:
   git checkout -b <new-branch-name>
 
 HEAD is now at c85a965... Initial work on an R string calculator
-{% endhighlight %}
+```
 
 You can verify that the file in your directory is now the older
 version:
 
-{% highlight console %}
+```console
 $ cat strcalc.R
 compute = function(input_string) {
   values = unlist(strsplit(input_string, ' '))
@@ -366,26 +366,26 @@ compute = function(input_string) {
     return(0)
   }
 }
-{% endhighlight %}
+```
 
 > Note: you can use just the first few digits of the hash when checking
 > out a specific revision:
 > 
-> {% highlight console %}
+> ```console
 > $ git checkout c0a11
 > Previous HEAD position was c85a965... Initial work on an R string calculator
 > HEAD is now at c0a11b0... Return NA, not 0, on invalid input
-> {% endhighlight %}
+> ```
 
 Thankfully, it's easy to go back to the latest version:
 
-{% highlight console %}
+```console
 $ git checkout master
 Previous HEAD position was c0a11b0... Return NA, not 0, on invalid input
 Switched to branch 'master'
 Your branch is ahead of 'origin/master' by 3 commits.
   (use "git push" to publish your local commits)
-{% endhighlight %}
+```
 
 ## Exercise 2: branches
 
@@ -396,23 +396,23 @@ you can keep using that one while fixing up the new stuff. In practice,
 almost _every_ change is significant enough to warrant a new branch,
 because "sprouting" one is cheap and easy.
 
-{% highlight console %}
+```console
 $ git checkout -b use-switch  # make branch to use switch statement
-{% endhighlight %}
+```
 
 You should read that as: check out the current branch into a new branch
 called `use-switch`. This is a good opportunity to learn about aliases,
 which are short names for commands that make them more memorable:
 
-{% highlight console %}
+```console
 $ git config --global alias.sprout 'checkout -b'
-{% endhighlight %}
+```
 
 You can then replace the previous command with:
 
-{% highlight console %}
+```console
 $ git sprout use-switch
-{% endhighlight %}
+```
 
 Feel free to get as creative as you want with your alias names! They are
 essential to making a more intuitive git interface that works for you. (But
@@ -439,10 +439,10 @@ operator was passed, but don't worry, we'll get to it!
 
 Commit that change:
 
-{% highlight console %}
+```console
 $ git add strcalc.R
 $ git commit -m "Use fancy-shmancy switch function"
-{% endhighlight %}
+```
 
 ... Oops! Your supervisor wants a working version of the program *now*,
 and she has no patience for programs that have no error messages! Or
@@ -595,20 +595,20 @@ $ git commit -a -m "Add support for division operator"
 
 Finally, bring those changes into the master branch:
 
-{% highlight console %}
+```console
 $ git checkout master
 $ git merge add-multiplication
 $ git merge add-division
-{% endhighlight %}
+```
 
 At this point git will, to use a technical term, *chuck a hissy fit*, and
 refuse to perform the merge:
 
-{% highlight console %}
+```console
 Auto-merging strcalc.R
 CONFLICT (content): Merge conflict in strcalc.R
 Automatic merge failed; fix conflicts and then commit the result.
-{% endhighlight %}
+```
 
 We must go into the file and manually fix the conflicting
 changes. Git places markers on the file where it has found conflicts,
@@ -675,10 +675,10 @@ compute = function(input_string) {
 Finally, tell git you've fixed the problem by `git add`ing the file,
 commit, and the merge will complete!
 
-{% highlight console %}
+```console
 $ git add strcalc.R
 $ git commit
-{% endhighlight %}
+```
 
 ## Challenge: Style guides
 
