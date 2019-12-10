@@ -24,10 +24,10 @@ The first thing you should do after installing git is setting your name and
 email, so that your changes are properly attributed when you commit them to a
 repo:
 
-{% highlight console %}
+```console
 $ git config --global user.name "Your Name"
 $ git config --global user.email "your.name@your.institute.edu"
-{% endhighlight %}
+```
 
 (The `--global` tag means that this configuration should be used for all your
 git projects. You can change the setting for specific project, e.g. if you want
@@ -50,8 +50,8 @@ conveniences: addition of a README, a gitignore, and a license.
 > 
 > The three most popular free and open source (FOSS) licenses are the
 > GNU Public License (GPL), the MIT license, and the BSD 3-clause license.
-> The main difference between them is that the GPL requires published
-> derivative works to themselves be licensed under
+> The main difference between them is that the GPL requires released
+> modifications, and even linking software, to themselves be licensed under
 > GPL-compatible licenses, while MIT and BSD make no such prescriptions.
 > 
 > I'm a big proponent of BSD. Jake Vanderplas, Director of Research at
@@ -67,75 +67,84 @@ conveniences: addition of a README, a gitignore, and a license.
 
 Follow [GitHub's
 instructions](https://help.github.com/articles/creating-a-new-repository)
-to create a new repository called "planets", with the description,
-"Notes on suitability of various planets for a crewed mission."
+to create a new repository called "pycalc", with the description,
+"A function to do simple arithmetic from strings."
 
 Once created, copy the URL from the box in the bottom right, and open
 a terminal window to *clone* the project from GitHub to your local
 machine.
-(Note: "jni" should be replaced by your own username.)
 
-{% highlight console %}
-$ git clone git@github.com:jni/planets.git
-$ cd planets
-{% endhighlight %}
+```console
+$ git clone git@github.com:<username>/pycalc.git
+$ cd pycalc
+```
 
 You can type `git status` to see that there is a git-tracked project there,
 but nothing to add to the history:
 
-{% highlight console %}
+```console
 $ git status
-{% endhighlight %}
+```
 
-Now you can start working on the project. We are going to add notes about
-Mars.
+Now you can start working on the project. We are going to create a function
+that takes in strings like '2 + 34' and produce the result, 36.
 
 In your editor, type:
 
-~~~
-Cold and dry, but everything is my favourite colour.
+~~~python
+def compute(expression):
+    values = expression.split(' ')
+    num0 = int(values[0])
+    operator = values[1]
+    num1 = int(values[2])
+    if operator == '+':
+        return num0 + num1
+    else:
+        print('unknown operator!')
+        return 0
 ~~~
 
-And save it to a file called `mars.txt` in the `planets` directory.
+And save it to a file called `calc.py` in the `pycalc` directory.
 
 Now we can see that git knows about the file, but it doesn't know whether it
 needs to worry about it. That's why it's listed under "Untracked files".
 This is handy for playing around with external files (e.g. dummy data files)
 that you don't necessarily want to keep for posterity.
 
-{% highlight console %}
+```console
 $ git status
 On branch master
 Your branch is up-to-date with 'origin/master'.
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
-        mars.txt
+    calc.py
 
-nothing added to commit but untracked files present (use "git add" to track)
-{% endhighlight %}
+    nothing added to commit but untracked files present (use "git add" to
+    track)
+```
 
 Tell git to add the file to its tracking system:
 
-{% highlight console %}
-$ git add mars.txt
+```console
+$ git add calc.py
 $ git status
 On branch master
 Your branch is up-to-date with 'origin/master'.
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-        new file:   mars.txt
-{% endhighlight %}
+    new file:   calc.py
+```
 
 Then, *commit* the changes to the history:
 
-{% highlight console %}
-$ git commit --message "Start notes on Mars as a base"
-[master 3e1d628] Start notes on Mars as a base
- 1 file changed, 1 insertion(+)
- create mode 100644 mars.txt
-{% endhighlight %}
+```console
+$ git commit --message "Initial work on a Python string calculator"
+[master c85a965] Initial work on a Python string calculator
+ 1 file changed, 12 insertions(+)
+ create mode 100644 calc.py
+```
 
 The quoted string is called a *commit message*. This should summarise the
 changes you made and *why* you made them. The message should be readable
@@ -168,16 +177,30 @@ followed in the community:
 
 ### ... back to the exercise
 
-Add another line, to the file, so that it reads as follows:
+We shouldn't return 0 on error, because it can be confused with a perfectly
+valid result. Instead, Python provides a handy value for missing or invalid
+data:
+`None`.
 
-~~~
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman.
+Edit your file so that, if the operator is not recognised, it returns `None`
+instead of 0.
+
+~~~python
+def compute(expression):
+    values = expression.split(' ')
+    num0 = int(values[0])
+    operator = values[1]
+    num1 = int(values[2])
+    if operator == '+':
+        return num0 + num1
+    else:
+        print('unknown operator!')
+        return None
 ~~~
 
 As before, we can check the status:
 
-{% highlight console %}
+```console
 $ git status
 On branch master
 Your branch is ahead of 'origin/master' by 1 commit.
@@ -186,13 +209,13 @@ Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-    modified:   mars.txt
+	modified:   calc.py
 
 no changes added to commit (use "git add" and/or "git commit -a")
-{% endhighlight %}
+```
 
 This time, the output is a bit different: rather than showing you an
-"Untracked file", your changes to `mars.txt` are now listed as "not staged
+"Untracked file", your changes to `calc.py` are now listed as "not staged
 for commit". What does this mean?
 
 If you think of git as taking snapshots of changes over the life of a
@@ -215,365 +238,444 @@ to stage things manually, or you might find yourself searching for
 
 Ok let's just commit everything now. =P
 
-{% highlight console %}
-$ git commit --all --message "Add concerns about effect of moons on Wolfman"
-{% endhighlight %}
+BUT FIRST! Let's actually check that "everything" is what we want. In
+addition to the one-line, "files changed" summary that we've seen, we can
+ask git for a line-by-line summary of changes:
 
-Finally, let's add a line about the Mummy's preferences:
+```console
+ $ git diff
+diff --git a/calc.py b/calc.py
+index ffadff3..012d92a 100644
+--- a/calc.py
++++ b/calc.py
+@@ -7,4 +7,4 @@ def compute(expression):
+         return num0 + num1
+     else:
+         print('unknown operator!')
+-        return 0
++        return None
+```
 
+You can see that changes to a line are encoded in git as deletion of
+that line and addition of the modified line. Git works on a line by line
+basis, which is why it's perfect for code and plain text files, but not
+so great for big binary files such as images.
+
+At any rate, the list of all the changes is indeed what we want to commit,
+so we can use `--all`:
+
+```console
+$ git commit --all --message "Return None, not 0, on invalid input"
+```
+
+Finally, let's add support for subtraction:
+
+~~~R
+compute = function(input_string) {
+  values = unlist(strsplit(input_string, ' '))
+  num0 = as.integer(values[1])
+  operator = values[2]
+  num1 = as.integer(values[3])
+  if (operator == '+') {
+    return(num0 + num1)
+  } else if (operator == '-') {
+    return(num0 - num1)
+  } else {
+    print('unknown operator!')
+    return(NA)
+  }
+}
 ~~~
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-~~~
-
-(Note the comma at the end of the second line.)
-
-In addition to producing the `git status` one-line summary that we've
-seen before, git can produce a line-by-line description of everything
-that's changed since our last commit:
-
-{% highlight console %}
-$ git diff
-diff --git a/mars.txt b/mars.txt
-index 30c4e2f..86cd5c2 100644
---- a/mars.txt
-+++ b/mars.txt
-@@ -1,2 +1,3 @@
- Cold and dry, but everything is my favourite colour.
--The 2 moons may be a problem for Wolfman.
-+The 2 moons may be a problem for Wolfman,
-+but the Mummy will appreciate the lack of humidity.
-{% endhighlight %}
-
-That's a machine-readable "diff format" that can be used by git and other
-software to reproduce the changes. Notice that a substitution (changing a
-full-stop into a comma) is encoded as a line deletion and addition, and the
-new line about the Mummy is another addition.
 
 Let's commit the changes:
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Note Mummy's preference for Martian atmosphere"
-{% endhighlight %}
+```console
+$ git add strcalc.R
+$ git commit -m "Add support for subtraction"
+```
 
 (`-m` is a shortcut for `--message`.)
 
 You now have a *history* that you can look at and interact with:
 
-{% highlight console %}
+```console
 $ git log
-commit 37aa3b547fde90c36af10c45b07ca74c6936750d
-Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
-Date:   Tue May 26 15:04:59 2015 +1000
+commit a4e5f6d6c9bd5dbcad86b4c5269b9c1995a1f321 (HEAD -> master)
+Author: Juan Nunez-Iglesias <juan.nunez-iglesias@monash.edu>
+Date:   Tue Dec 10 16:21:35 2019 +1100
 
-    Note Mummy's preference for Martian atmosphere
+    Add support for subtraction
 
-commit 71269262f49859b9b53b2e3ccbeec084fcae624b
-Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
-Date:   Tue May 26 14:49:15 2015 +1000
+commit 18b68bcab248b571e4c4264c43b013c1cedbd7d5
+Author: Juan Nunez-Iglesias <juan.nunez-iglesias@monash.edu>
+Date:   Tue Dec 10 16:16:33 2019 +1100
 
-    Add concerns about effect of moons on Wolfman
+    Return None, not 0, on invalid input
 
-commit 3e1d628655c096b98d0fe7a2994350c014196714
-Author: Juan Nunez-Iglesias <juan.n@unimelb.edu.au>
-Date:   Tue May 26 12:46:17 2015 +1000
+commit f817c9aeb2ff15e3b3a91a8a9124c87f41a6cbb8
+Author: Juan Nunez-Iglesias <juan.nunez-iglesias@monash.edu>
+Date:   Tue Dec 10 16:14:24 2019 +1100
 
-    Start notes on Mars as a base
-
-commit 2407f61e7bddda4e59118f2dfe78317a1d5a199c
-Author: Juan Nunez-Iglesias <jni.soma@gmail.com>
-Date:   Tue May 26 12:23:56 2015 +1000
-
-    Initial commit
-{% endhighlight %}
+    Initial work on a Python string calculator
+```
 
 You can *check out* earlier versions of your code using the hash of
 a particular snapshot, like so:
 
-{% highlight console %}
-$ git checkout 71269262f49859b9b53b2e3ccbeec084fcae624b
-Note: checking out '71269262f49859b9b53b2e3ccbeec084fcae624b'.
+```console
+$ git checkout 18b68bcab248b571e4c4264c43b013c1cedbd7d5
+Note: switching to '18b68bcab248b571e4c4264c43b013c1cedbd7d5'.
 
 You are in 'detached HEAD' state. You can look around, make experimental
 changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
+state without impacting any branches by switching back to a branch.
 
 If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
+do so (now or later) by using -c with the switch command. Example:
 
-  git checkout -b new_branch_name
+  git switch -c <new-branch-name>
 
-HEAD is now at 7126926... Add concerns about effect of moons on Wolfman
-{% endhighlight %}
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 18b68bc Return None, not 0, on invalid input
+```
 
 You can verify that the file in your directory is now the older
 version:
 
-{% highlight console %}
-$ cat mars.txt
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman.
-{% endhighlight %}
+```console
+$ cat calc.py
+def compute(expression):
+    values = expression.split(' ')
+    num0 = int(values[0])
+    operator = values[1]
+    num1 = int(values[2])
+    if operator == '+':
+        return num0 + num1
+    else:
+        print('unknown operator!')
+        return None
+```
 
 > Note: you can use just the first few digits of the hash when checking
 > out a specific revision:
 > 
-> {% highlight console %}
-> $ git checkout 7126
-> HEAD is now at 7126926... Add concerns about effect of moons on Wolfman
-> {% endhighlight %}
+> ```console
+> $ git checkout f817c
+> Previous HEAD position was 18b68bc Return None, not 0, on invalid input
+> HEAD is now at f817c9a Initial work on a Python string calculator
+> ```
 
 Thankfully, it's easy to go back to the latest version:
 
-{% highlight console %}
-$ git checkout master
-{% endhighlight %}
+```console
+$ git switch master
+Previous HEAD position was c0a11b0... Initial work on a Python string calculator
+Switched to branch 'master'
+```
 
 ## Exercise 2: branches
 
-Now we will undertake a major change to the structure of the document.
+Now we will undertake a major change to the structure of the function.
 Because it's such a big
 change, you want to work in a different _branch_ from "master", so that
 you can keep using that one while fixing up the new stuff. In practice,
 almost _every_ change is significant enough to warrant a new branch,
 because "sprouting" one is cheap and easy.
 
-{% highlight console %}
-$ git checkout -b headings  # make branch to add headings
-{% endhighlight %}
+```console
+$ git switch --create use-unpacking
+```
 
-You should read that as: check out the current branch into a new branch
-called `headings`. This is a good opportunity to learn about aliases,
-which are short names for commands that make them more memorable:
+You should read that as: switch into a *new* branch
+called `use-unpacking`.
+(Note: if using a git version older than 2.23.0, you should use `git checkout
+--branch use-unpacking`.)
 
-{% highlight console %}
-$ git config --global alias.sprout 'checkout -b'
-{% endhighlight %}
+Now let's use *iterable unpacking* to get the values from our string:
 
-You can then replace the previous command with:
-
-{% highlight console %}
-$ git sprout headings
-{% endhighlight %}
-
-Feel free to get as creative as you want with your alias names! They are
-essential to making a more intuitive git interface that works for you. (But
-do keep in mind that they will not be there when you use a different
-computer!)
-
-Now let's change the style of the text to be a bit less robotic:
-
-~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
+~~~python
+def compute(expression):
+    num0, operator, num1 = expression.split(' ')
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
+    else:
+        print('unknown operator!')
+        return None
 ~~~
 
 Commit that change:
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Add title and heading"
-{% endhighlight %}
+```console
+$ git add calc.py
+$ git commit -m "Use fancy-schmancy iterable unpacking"
+```
 
-... and add a heading for human-focused concerns:
+... Oops! It looks like we've broken our function!
 
-~~~
-# Mars
+```python
+>>> import calc
+>>> calc.compute('5 + 8')
+'58'
+```
 
-## Properties pertaining to monster habitability
+Meanwhile, our supervisor wants a working version of the program *now*! No time
+to debug. Plus, she has no patience for broken software! Or
+functions without documentation! Let's go back to our working version:
 
-Cold and dry, but everything is my favourite colour.
-The 2 moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
+```console
+$ git switch master
+```
 
-## Properties pertaining to human habitability
-~~~
+And edit the file to add an informative comment above the function
+definition:
 
-Now commit, return to the master branch, and make some unrelated changes:
+```python
+# Perform simple arithmetic encoded in an input string:
+# '1 + 2' -> 3, or '1 - 2' -> -1.
+def compute(expression):
+    values = expression.split(' ')
+    num0 = int(values[0])
+    operator = values[1]
+    num1 = int(values[2])
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
+    else:
+        print('unknown operator!')
+        return None
+```
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Add heading for human-specific concerns"
-$ git checkout master
-{% endhighlight %}
+We can commit those changes:
 
-Replace the number "2" with the word "two":
+```console
+$ git commit -a -m "Add function documentation"
+[master ef26741] Add function documentation
+ 1 file changed, 2 insertions(+)
+```
 
-~~~
-Cold and dry, but everything is my favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-~~~
+Whew! Now we have that working version (the master branch should always
+work!), with documentation, we can send it to our supervisor and go back to
+fixing our fancy iterable-unpacking version.
 
-And commit those changes:
+```console
+$ git switch use-unpacking
+```
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Improve English style by replacing 2 with two"
-{% endhighlight %}
+Now, more calmly, we see than in our rush to implement unpacking, we've
+forgotten to convert our strings to numbers! A simple fix:
 
-Now, you've thought about the "headings" branch and decide it's time to
-merge those changes back into your "main" history. `git merge` intelligently
-merges two history branches:
+```python
+def compute(expression):
+    num0, operator, num1 = expression.split(' ')
+    num0, num1 = int(num0), int(num1)
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
+    else:
+        print('unknown operator!')
+        return None
+```
 
-{% highlight console %}
-$ git merge headings  # merge branch 'headings' into current branch ('master')
-{% endhighlight %}
+And we commit it:
 
-Git automatically generates a log message and produces the merged file:
+```console
+ $ git commit -a -m "Convert num strings to int"
+[use-unpacking 81794b8] Convert num strings to int
+ 1 file changed, 1 insertion(+)
+```
 
-~~~
-# Mars
+Now your `use-unpacking` branch is ready to become the main
+branch of your program. But you also don't want to throw out the documentation
+changes you made on the master branch!
 
-## Properties pertaining to monster habitability
+`git merge` can often automatically reconcile changes in two branched
+histories:
 
-Cold and dry, but everything is my favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
+```console
+ $ git switch master
+Switched to branch 'master'
 
-## Properties pertaining to human habitability
-~~~
+ $ git merge use-unpacking
+Auto-merging calc.py
+Merge made by the 'recursive' strategy.
+ calc.py | 6 ++----
+ 1 file changed, 2 insert:w
+ ions(+), 4 deletions(-)
+```
 
-Easy!
+Git has automatically done the work of resolving the different changes!
+
+```python
+# Perform simple arithmetic encoded in an input string:
+# '1 + 2' -> 3, or '1 - 2' -> -1.
+def compute(expression):
+    num0, operator, num1 = expression.split(' ')
+    num0, num1 = int(num0), int(num1)
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
+    else:
+        print('unknown operator!')
+        return None
+```
+
 
 ## Exercise 3: merge conflicts
 
-Sometimes, changes in a branch and changes in the master branch are too
-difficult for git to merge automatically, and `git merge` will result in a
-*merge conflict*. In this exercise, you will see how to deal with those.
+Sometimes, it's not clear *how* two branching changes should be merged, for
+example if the same line is changed in both histories. Which change should
+take precedence? Git does the right thing and defers the decision to you.
+Let's see how it does this.
 
-Dracula has been asked to write in the third person because the document
-must make sense independently of knowing the author. So he needs to make a
-branch to make this change:
+Create a branch to add the multiplication operator:
 
-{% highlight console %}
-$ git checkout -b third-person
-{% endhighlight %}
+```console
+$ git switch master --create add-multiplication
+```
 
-(Use your `sprout` alias if you made one! I leave the "canonical form" here
-for those that haven't, or that mysteriously skipped the alias section.)
+It's just a matter of adding the following lines:
 
-~~~
-# Mars
+```python
+    elif operator == '*':
+        return num0 * num1
+```
 
-## Properties pertaining to monster habitability
+Commit that change:
 
-Cold and dry, but everything is Dracula's favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
+```console
+$ git commit -a -m "Add support for multiplication operator"
+```
 
-## Properties pertaining to human habitability
-~~~
+Now, repeat the same procedure, including the new branch, for division:
 
-Commit the change:
+```console
+$ git switch master --create add-division
+# ... make changes to python file...
+$ git commit -a -m "Add support for division operator"
+```
 
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Change Dracula reference to the third person"
-{% endhighlight %}
+Finally, bring those changes into the master branch:
 
-Now, a pedantic member of the team (let's call them "Juan Nunez-Iglesias")
-has requested that only valid, complete English sentences should appear in
-the document text. So we make another branch for that change.
-
-{% highlight console %}
-$ git checkout master
-$ git checkout -b pedant
-{% endhighlight %}
-
-And edit the file as follows:
-
-~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
-Mars is cold and dry, but everything is my favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
-~~~
-
-And commit our changes:
-
-{% highlight console %}
-$ git add mars.txt
-$ git commit -m "Complete first sentence"
-{% endhighlight %}
-
-Finally, we get back the master branch and try to merge each branch in
-sequence:
-
-{% highlight console %}
-$ git checkout master
-$ git merge third-person
-$ git merge pedant
-{% endhighlight %}
+```console
+$ git switch master
+$ git merge add-multiplication
+$ git merge add-division
+```
 
 At this point git will, to use a technical term, *chuck a hissy fit*, and
 refuse to perform the merge:
 
-{% highlight console %}
-Auto-merging mars.txt
-CONFLICT (content): Merge conflict in mars.txt
+```console
+Auto-merging calc.py
+CONFLICT (content): Merge conflict in calc.py
 Automatic merge failed; fix conflicts and then commit the result.
-{% endhighlight %}
+```
 
-We must go into the file and manually fix the conflicting
+Note: git error messages can be scary, but it's worth taking the time to read
+them carefully. They often provide the solution to the current problem.
+
+In this case, we must go into the file and manually fix the conflicting
 changes. Git places markers on the file where it has found conflicts,
 so you can quickly identify those locations and decide on a fix:
 
 ~~~
-# Mars
-
-## Properties pertaining to monster habitability
-
+# Perform simple arithmetic encoded in an input string:
+# '1 + 2' -> 3, or '1 - 2' -> -1.
+def compute(expression):
+    num0, operator, num1 = expression.split(' ')
+    num0, num1 = int(num0), int(num1)
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
 <<<<<<< HEAD
-Cold and dry, but everything is Dracula's favourite colour.
+    elif operator == '*':
+        return num0 * num1
 =======
-Mars is cold and dry, but everything is my favourite colour.
->>>>>>> pedant
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
+    elif operator == '/':
+        return num0 / num1
+>>>>>>> add-division
+    else:
+        print('unknown operator!')
+        return None
 ~~~
 
 Git is saying that in the current branch ("HEAD"), the file at that
-position contains the single line, "Cold and dry, but everything is
-Dracula's favourite colour.", while the `pedant` branch, which we
-are trying to merge, contains the line, "Mars is cold and dry, but
-everything is my favourite colour."
+position contains the multiplication lines, while the
+`add-division` branch, which we are trying to merge, contains the division
+lines *at the very same spot*.
 
 You fix merge conflicts by navigating to the `<<<<<<<` markers, comparing
 the two conflicting versions, and leaving the file as you want it to be
 committed: removing the markers, and combining the changes in a way
 that makes sense, and that a system like git can't figure out by itself.
 
-~~~
-# Mars
+In this case, we simply remove all the markers, and leave the two line pairs
+one after the other inside the file.
 
-## Properties pertaining to monster habitability
-
-Mars is cold and dry, but everything is Dracula's favourite colour.
-The two moons may be a problem for Wolfman,
-but the Mummy will appreciate the lack of humidity.
-
-## Properties pertaining to human habitability
+~~~python
+# Perform simple arithmetic encoded in an input string:
+# '1 + 2' -> 3, or '1 - 2' -> -1.
+def compute(expression):
+    num0, operator, num1 = expression.split(' ')
+    num0, num1 = int(num0), int(num1)
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
+    elif operator == '*':
+        return num0 * num1
+    elif operator == '/':
+        return num0 / num1
+    else:
+        print('unknown operator!')
+        return None
 ~~~
 
 Finally, tell git you've fixed the problem by `git add`ing the file,
 commit, and the merge will complete!
 
-{% highlight console %}
-$ git add mars.txt
+```console
+$ git add calc.py
 $ git commit
-{% endhighlight %}
+```
+
+You can check that the history of our project using our created alias, `git
+lsd`. (See the set up chapter.)
+
+```
+ $ git lsd
+*   96b6056 (HEAD -> master) Merge branch 'add-division'
+|\
+| * f07a196 (add-division) Add support for division operator
+* | 81d75fc (add-multiplication) Add support for multiplication operator
+|/
+*   8ab4b31 Merge branch 'use-unpacking'
+|\
+| * 81794b8 (use-unpacking) Convert num strings to int
+| * 215e7b8 Use fancy-schmancy iterable unpacking
+* | a0d2ca0 Add function documentation
+|/
+* a4e5f6d Add support for subtraction
+* 18b68bc Return None, not 0, on invalid input
+* f817c9a Initial work on a Python string calculator
+```
+
+## Challenge: Style guides
+
+When in Rome, do as the Romans do. In the case of Python, the community has
+converged on some prescriptive coding styles. The two main authoritative style
+guides are [PEP8](https://www.python.org/dev/peps/pep-0008/) (for syntax) and
+[PEP257](https://www.python.org/dev/peps/pep-0257/) (for documentation). Can
+you change your function's documentation to match the recommendations of
+PEP257?
