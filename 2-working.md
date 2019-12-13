@@ -270,27 +270,25 @@ $ git commit --all --message "Return None, not 0, on invalid input"
 
 Finally, let's add support for subtraction:
 
-~~~R
-compute = function(input_string) {
-  values = unlist(strsplit(input_string, ' '))
-  num0 = as.integer(values[1])
-  operator = values[2]
-  num1 = as.integer(values[3])
-  if (operator == '+') {
-    return(num0 + num1)
-  } else if (operator == '-') {
-    return(num0 - num1)
-  } else {
-    print('unknown operator!')
-    return(NA)
-  }
-}
+~~~python
+def compute(expression):
+    values = expression.split(' ')
+    num0 = int(values[0])
+    operator = values[1]
+    num1 = int(values[2])
+    if operator == '+':
+        return num0 + num1
+    elif operator == '-':
+        return num0 - num1
+    else:
+        print('unknown operator!')
+        return None
 ~~~
 
 Let's commit the changes:
 
 ```console
-$ git add strcalc.R
+$ git add calc.py
 $ git commit -m "Add support for subtraction"
 ```
 
